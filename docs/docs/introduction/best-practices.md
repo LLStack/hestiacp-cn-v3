@@ -1,11 +1,11 @@
-# Best Practices
+# 最佳实践
 
-Managing a server is not easy. Here are some best practices you should try to adhere to while managing your Hestia server.
+管理服务器并不轻松。以下是在管理你的 Hestia 服务器时应尽量遵循的一些最佳实践。
 
-## Use a regular user
+## 使用普通用户
 
-Before adding any web or mail domain on your server, you should create a regular user. To do this, you can refer to our [User Management Guide](../user-guide/users#adding-a-user).
+在服务器上添加任何 Web 或邮件域名前，建议先创建一个普通用户。具体步骤可参考我们的[用户管理指南](../user-guide/users#adding-a-user)。
 
-## Enable two-factor authentication (2FA) for the _admin_ user
+## 为 admin 用户启用双重认证（2FA）
 
-Since the **admin** user has full control on the server, as well as elevated privileges, it is **greatly** recommended that you enable 2FA on this account. To do this, you can refer to our [Account Management](../user-guide/account#two-factor-authentication-2fa).
+由于 **admin** 用户对服务器拥有完全控制权与更高权限，**强烈**建议为该账户启用 2FA。具体步骤可参考[账户管理](../user-guide/account#two-factor-authentication-2fa)。

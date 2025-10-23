@@ -1,124 +1,124 @@
-# Packages
+# 套餐（Packages）
 
-To manage packages, log in as an **administrator** and navigate to the **Users <i class="fas fa-fw fa-users"></i>** tab.
+要管理套餐，请以**管理员**身份登录并进入 **用户 <i class="fas fa-fw fa-users"></i>** 选项卡。
 
-## Adding a new package
+## 新增套餐
 
-1. Click the **<i class="fas fa-fw fa-plus-circle"></i> Add Package** button.
-2. Fill out the form. When clicking on <i class="fas fa-fw fa-infinity"><span class="visually-hidden">unlimited</span></i> icon, the limits will be set to unlimited.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 新增套餐**。
+2. 填写表单。点击 <i class="fas fa-fw fa-infinity"><span class="visually-hidden">无限</span></i> 图标可将限制设置为无限。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-## Copying a package
+## 复制套餐
 
-1. Hover over the package you want to copy.
-2. Click the <i class="fas fa-fw fa-clone"><span class="visually-hidden">copy</span></i> icon on the right of the package name.
+1. 将鼠标悬停在要复制的套餐上。
+2. 点击套餐名称右侧的 <i class="fas fa-fw fa-clone"><span class="visually-hidden">复制</span></i> 图标。
 
-## Editing a package
-
-::: info
-The **system** package can’t be edited or renamed.
-:::
-
-1. Hover over the package you want to edit.
-2. Click the <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">edit</span></i> icon on the right of the package name.
-
-## Deleting a package
+## 编辑套餐
 
 ::: info
-The **system** package can’t be deleted.
+**system** 套餐不可编辑或重命名。
 :::
 
-1. Hover over the package you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> icon on the right of the package name.
+1. 将鼠标悬停在要编辑的套餐上。
+2. 点击套餐名称右侧的 <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">编辑</span></i> 图标。
 
-## Importing existing packages from a different server
-
-Packages are stored in `/usr/local/hestia/data/packages` as `package-name.pkg`. Simply copy these package files to other servers.
-
-## Package configuration
+## 删除套餐
 
 ::: info
-Some options may not be available depending on your setup.
+**system** 套餐不可删除。
 :::
 
-### Quota
+1. 将鼠标悬停在要删除的套餐上。
+2. 点击套餐名称右侧的 <i class="fas fa-fw fa-trash"><span class="visually-hidden">删除</span></i> 图标。
 
-Total available storage space including the websites, email accounts, databases and the home folder. If you have enabled **File Quotas** during install or in the server settings, this value enforces the quota limit on websites, email accounts and the home folder. Databases are excluded.
+## 从其他服务器导入套餐
 
-### Bandwidth
+套餐存储在 `/usr/local/hestia/data/packages`，文件名为 `package-name.pkg`。将这些文件复制到其他服务器即可。
 
-Allocated bandwidth. Only outgoing traffic over web is accounted for.
+## 套餐配置项
 
-There’s currently no methods of auto-suspending available.
+::: info
+某些选项可能因环境不同而不可用。
+:::
 
-### Backups
+### 配额（Quota）
 
-Maximum number of backups that can be stored.
+可用总存储空间，包括网站、邮箱、数据库及主目录。若在安装或服务器设置中启用了**文件配额**，此值会对网站、邮箱与主目录生效（数据库不受限）。
 
-## Web domains
+### 带宽（Bandwidth）
 
-### Web domains
+分配的带宽。仅统计 Web 出站流量。
 
-Maximum number of web domains that can be created.
+当前不提供自动暂停的机制。
 
-### Aliases
+### 备份（Backups）
 
-Maximum number of aliases that can be added per domain.
+可存储的最大备份数量。
 
-### Proxy Template
+## 网站域
 
-Default proxy template for created domains.
+### 网站域数量
 
-### Web Template
+可创建的网站域数量上限。
 
-Default web template for created domains.
+### 别名数量
+
+每个域可添加的别名数量上限。
+
+### 反向代理模板
+
+新建域的默认反向代理模板。
+
+### Web 模板
+
+新建域的默认 Web 模板。
 
 ## DNS
 
-### DNS Template
+### DNS 模板
 
-Default DNS template that get assigned on domain creation.
+新建域时默认分配的 DNS 模板。
 
-### DNS Domains
+### DNS 域数量
 
-Maximum number of DNS domains that can be created.
+可创建的 DNS 域数量上限。
 
-### DNS records
+### DNS 记录数
 
-Maximum number of DNS records that can be added per domain.
+每个域可添加的 DNS 记录数量上限。
 
-### Name Servers
+### 名称服务器（NS）
 
-Default name servers to be used by the user. Up to 8 different name servers can be added.
+用户默认使用的名称服务器，最多可配置 8 个。
 
-## Mail
+## 邮件
 
-### Mail Domains
+### 邮件域数量
 
-Maximum number of mail domains that can be created.
+可创建的邮件域数量上限。
 
-### Mail accounts
+### 邮箱账户数
 
-Maximum number of mail accounts that can be added per domain.
+每个域可添加的邮箱账户数量上限。
 
-### Rate limit
+### 发送限速
 
-Maximum number of emails that accounts can send per hour.
+每小时可发送的邮件数量上限。
 
-## Databases
+## 数据库
 
-Maximum number of databases that can be created.
+可创建的数据库数量上限。
 
-## System
+## 系统
 
-### Cron jobs
+### 定时任务
 
-Maximum number of cron jobs that can be created.
+可创建的定时任务数量上限。
 
-### Shell access
+### Shell 访问
 
-Select the shell that will be shown to the user when logging in via SSH.
+选择用户通过 SSH 登录时所使用的 Shell。
 
 ::: warning
-When set to `nologin`, SSH access is disabled but SFTP access is still allowed.
+若设置为 `nologin`，将禁用 SSH 访问，但仍允许 SFTP。
 :::

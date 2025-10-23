@@ -1,57 +1,57 @@
-# Documentation
+# 文档
 
-## Getting started
+## 入门
 
-- [Getting started](/docs/introduction/getting-started)
-- [Best practices](/docs/introduction/best-practices)
+- [快速开始](/docs/introduction/getting-started)
+- [最佳实践](/docs/introduction/best-practices)
 
-## User Guide
+## 用户指南
 
-- [Account](/docs/user-guide/account)
-- [Backups](/docs/user-guide/backups)
-- [Cron jobs](/docs/user-guide/cron-jobs)
-- [Databases](/docs/user-guide/databases)
+- [账户](/docs/user-guide/account)
+- [备份](/docs/user-guide/backups)
+- [定时任务](/docs/user-guide/cron-jobs)
+- [数据库](/docs/user-guide/databases)
 - [DNS](/docs/user-guide/dns)
-- [File manager](/docs/user-guide/file-manager)
-- [Mail domains](/docs/user-guide/mail-domains)
-- [Notifications](/docs/user-guide/notifications)
-- [Packages](/docs/user-guide/packages)
-- [Statistics](/docs/user-guide/statistics)
-- [Users](/docs/user-guide/users)
-- [Web domains](/docs/user-guide/web-domains)
+- [文件管理器](/docs/user-guide/file-manager)
+- [邮件域](/docs/user-guide/mail-domains)
+- [通知](/docs/user-guide/notifications)
+- [套餐](/docs/user-guide/packages)
+- [统计](/docs/user-guide/statistics)
+- [用户](/docs/user-guide/users)
+- [网站域名](/docs/user-guide/web-domains)
 
-## Server administration
+## 服务器管理
 
-- [Backup & restore](/docs/server-administration/backup-restore)
-- [Configuration](/docs/server-administration/configuration)
-- [Customisation](/docs/server-administration/customisation)
-- [Databases & phpMyAdmin](/docs/server-administration/databases)
-- [DNS clusters & DNSSEC](/docs/server-administration/dns)
-- [Email](/docs/server-administration/email)
-- [File manager](/docs/server-administration/file-manager)
-- [Firewall](/docs/server-administration/firewall)
-- [OS upgrades](/docs/server-administration/os-upgrades)
-- [Rest API](/docs/server-administration/rest-api)
-- [SSL certificates](/docs/server-administration/ssl-certificates)
-- [Web templates & caching](/docs/server-administration/web-templates)
-- [Troubleshooting](/docs/server-administration/troubleshooting)
+- [备份与恢复](/docs/server-administration/backup-restore)
+- [配置](/docs/server-administration/configuration)
+- [定制](/docs/server-administration/customisation)
+- [数据库与 phpMyAdmin](/docs/server-administration/databases)
+- [DNS 集群与 DNSSEC](/docs/server-administration/dns)
+- [邮件](/docs/server-administration/email)
+- [文件管理器](/docs/server-administration/file-manager)
+- [防火墙](/docs/server-administration/firewall)
+- [系统升级](/docs/server-administration/os-upgrades)
+- [REST API](/docs/server-administration/rest-api)
+- [SSL 证书](/docs/server-administration/ssl-certificates)
+- [Web 模板与缓存](/docs/server-administration/web-templates)
+- [故障排查](/docs/server-administration/troubleshooting)
 
-## Contributing
+## 参与贡献
 
-- [Building Packages](/docs/contributing/building)
-- [Development](/docs/contributing/development)
-- [Documentation](/docs/contributing/documentation)
-- [Quick install app](/docs/contributing/quick-install-app)
-- [Testing](/docs/contributing/testing)
-- [Translations](/docs/contributing/translations)
+- [构建软件包](/docs/contributing/building)
+- [开发](/docs/contributing/development)
+- [文档](/docs/contributing/documentation)
+- [快速安装应用](/docs/contributing/quick-install-app)
+- [测试](/docs/contributing/testing)
+- [翻译](/docs/contributing/translations)
 
-## Community
+## 社区
 
-- [Hestia Nginx Cache](/docs/community/hestia-nginx-cache)
-- [Ioncube installer for Hestia](/docs/community/ioncube-hestia-installer)
-- [Install script generator](/docs/community/install-script-generator)
+- [Hestia Nginx 缓存](/docs/community/hestia-nginx-cache)
+- [Hestia 的 Ioncube 安装器](/docs/community/ioncube-hestia-installer)
+- [安装脚本生成器](/docs/community/install-script-generator)
 
-## Reference
+## 参考
 
 - [API](/docs/reference/api)
 - [CLI](/docs/reference/cli)

@@ -1,98 +1,66 @@
-# SSL Certificates
+# SSL 证书
 
-## How to setup Let’s Encrypt for the control panel
+## 为控制面板启用 Let’s Encrypt
 
-Make sure the hostname of the server is pointed to the server’s IP address and that you set the hostname correctly.
+请确保服务器主机名已正确解析到服务器 IP，并在系统中正确设置了主机名。
 
-Running the following commands will change the hostname and generate a Let’s Encrypt certificate for the control panel:
+执行以下命令可更改主机名并为控制面板申请 Let’s Encrypt 证书：
 
 ```bash
 v-change-sys-hostname host.domain.tld
 v-add-letsencrypt-host
 ```
 
-## Common errors using Let’s Encrypt
+## 常见 Let’s Encrypt 错误
 
 ::: info
-Due to changes in the code, the error message has been changed. The following list will be extended in the future.
+由于实现演进，报错信息可能发生变化，以下列表会逐步补充。
 :::
 
-| Error         | Message                                                                                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rateLimited` | The rate limit of the maximum requests have been passed. Please check [https://crt.sh](https://crt.sh) to see how many active certificates you have. |
+| Error         | Message                                                                        |
+| ------------- | ------------------------------------------------------------------------------ |
+| `rateLimited` | 触发了频率限制。请在 [https://crt.sh](https://crt.sh) 查看该域已签发证书数量。 |
 
 ### Let’s Encrypt validation status 400
 
-When requesting an SSL certificate, you may encounter the following error:
+申请证书时可能出现：
 
 ```bash
 Error: Let’s Encrypt validation status 400. Details: Unable to update challenge :: authorisation must be pending
 ```
 
-This could mean multiple things:
+可能原因：
 
-1. Cloudflare’s proxy is enabled and the **SSL/TLS** setting is set to **Full (strict)**.
-2. Nginx or Apache is not reloading correctly.
-3. IPv6 is setup. Disable IPv6 in DNS.
-4. There is an issue with a template.
+1. Cloudflare 代理已开启，且 **SSL/TLS** 设为 **Full (strict)**。
+2. Nginx 或 Apache 未正确重载。
+3. DNS 中启用了 IPv6（可暂时关闭）。
+4. 所用模板存在问题。
 
-In the future we hope to improve debugging, but currently the easiest way to debug this issue is to navigate to `/var/log/hestia/` and inspect the desired log file (`LE-{user}-{domain}.log`), which should appear after requesting a certificate.
+目前可前往 `/var/log/hestia/` 查看 `LE-{user}-{domain}.log` 以定位问题。查找 **Step 5** 段落并查看 JSON 返回，访问其中的 URL 可获得更详细的错误原因。
 
-Find **Step 5**, where you will see something similar to the following:
+### 其他调试建议
 
-```bash
-==[Step 5]==
-- status: 200
-- nonce: 0004EDQMty6_ZOb1BdRQSc-debiHXGXaXbZuyySFU2xoogk
-- validation: pending
-- details:
-- answer: HTTP/2 200
-server: nginx
-date: Wed, 21 Apr 2021 22:32:16 GMT
-content-type: application/json
-content-length: 186
-boulder-requester: 80260362
-cache-control: public, max-age=0, no-cache
-link: <https://acme-v02.api.letsencrypt.org/directory>;rel="index"
-link: <https://acme-v02.api.letsencrypt.org/acme/authz-v3/12520447717>;rel="up"
-location: https://acme-v02.api.letsencrypt.org/acme/chall-v3/12520447717/scDRXA
-replay-nonce: 0004EDQMty6_ZOb1BdRQSc-debiHXGXaXbZuyySFU2xoogk
-x-frame-options: DENY
-strict-transport-security: max-age=604800
+可使用 [Let’s Debug](https://letsdebug.net)：
 
-{
-  "type": "http-01",
-  "status": "pending",
-  "url": "https://acme-v02.api.letsencrypt.org/acme/chall-v3/12520447717/scDRXA",
-  "token": "9yriok5bpLtV__m-rZ8f2tQmrfeQli0tCxSj4iNkv2Y"
-}
-```
+1. 输入域名
+2. 选择 HTTP-01
+3. 运行测试
 
-By following the URL in the JSON response, you will get more info about what went wrong.
+完成后会显示错误或成功提示及更多细节。
 
-### Other tips for debugging Let’s Encrypt
+## Let’s Encrypt 与 Cloudflare 代理能同时使用吗？
 
-Try to use [Let’s Debug](https://letsdebug.net):
+可以，但需按如下步骤：
 
-1. Enter your domain name.
-2. Make sure HTTP-01 is selected
-3. Run the test
+1. 先关闭该域名的 Cloudflare 代理（仅 DNS）。
+2. 等待至少 5 分钟以便 DNS 缓存失效。
+3. 在面板或 CLI 中申请证书。
+4. 重新开启代理。
+5. 在 **SSL/TLS** 中切换为 **Full (strict)**。
 
-Once the test is completed, it will show an error or a success message, containing more information.
+## 可以使用 Cloudflare Origin CA 证书吗？
 
-## Can I enable Cloudflare’s proxy with Let’s Encrypt?
-
-Yes, you are able to use Let’s Encrypt certificates with Cloudflare’s proxy, however you need to follow some special steps:
-
-1. Disable Cloudflare’s proxy for the desired domain.
-2. Wait at least 5 minutes, for DNS caches to expire.
-3. Request the certificate via the control panel or use the CLI command.
-4. Reenable the proxy.
-5. In the **SSL/TLS** tab, switch over to **Full (strict)**.
-
-## Can I use a Cloudflare Origin CA SSL Certificate?
-
-1. Create an Origin CA certificate by [following these steps](https://developers.cloudflare.com/ssl/origin-configuration/origin-ca#1-create-an-origin-ca-certificate).
-2. Once generated, enter your SSL keys in the **Edit Web Domain** page.
-3. In the **SSL Certificate Authority / Intermediate** box, enter [this certificate](https://developers.cloudflare.com/ssl/static/origin_ca_rsa_root.pem).
-4. In Cloudflare’s **SSL/TLS** tab, switch over to **Full (strict)**.
+1. 按[指引](https://developers.cloudflare.com/ssl/origin-configuration/origin-ca#1-create-an-origin-ca-certificate) 生成 Origin CA 证书；
+2. 将证书与私钥填入 “编辑网站域名” 的 SSL 区域；
+3. 在 “证书颁发机构/中间证书” 中填入[该根证书](https://developers.cloudflare.com/ssl/static/origin_ca_rsa_root.pem)；
+4. 在 Cloudflare 的 **SSL/TLS** 中切换为 **Full (strict)**。

@@ -1,28 +1,28 @@
-# File manager
+# 文件管理器（后台）
 
-## How can I enable or disable the file manager
+## 如何启用或禁用后台文件管理器
 
-In a new install, the file manager will be enabled by default.
+全新安装默认启用后台文件管理器。
 
-To enable or update the file manager, please run the following command:
+启用或更新文件管理器：
 
 ```bash
 v-add-sys-filemanager
 ```
 
-To disable the file manager, please run the following command:
+禁用文件管理器：
 
 ```bash
 v-delete-sys-filemanager
 ```
 
-## File manager gives “Unknown Error” message
+## 文件管理器提示 “Unknown Error”
 
-This seems to occur specifically when the line `Subsystem sftp /usr/lib/openssh/sftp-server` is removed or changed in `/etc/ssh/sshd_config` in such a way that the install script cannot update it to `Subsystem sftp internal-sftp`.
+通常是因为你在 `/etc/ssh/sshd_config` 删除或修改了 `Subsystem sftp /usr/lib/openssh/sftp-server`，导致安装脚本无法更新为 `Subsystem sftp internal-sftp`。
 
-Short answer: add `Subsystem sftp internal-sftp` to `/etc/ssh/sshd_config`.
+简要修复：在 `/etc/ssh/sshd_config` 添加 `Subsystem sftp internal-sftp`。
 
-Long answer: Refer to the install script `./install/hst-install-{distro}.sh` for all the changes made to `/etc/ssh/sshd_config`. For Debian, the changes can be summarised as follows:
+详细说明：安装脚本 `./install/hst-install-{distro}.sh` 会修改 `/etc/ssh/sshd_config`。例如 Debian 的变更：
 
 ```bash
 # HestiaCP Changes to the default /etc/ssh/sshd_config in Debian 10 Buster
@@ -40,14 +40,14 @@ Subsystem sftp internal-sftp
 DebianBanner no
 ```
 
-Changing all of the other parameters to their defaults and also changing to `PasswordAuthentication no` did not reproduce the error, thus it would seem to be isolated to the `Subsystem sftp internal-sftp` parameter.
+将其他参数还原为默认、并设置 `PasswordAuthentication no` 也无法复现该错误，因此基本可确定问题出在 `Subsystem sftp internal-sftp`。
 
-For more information regarding debugging, inspect the Hestia Nginx log:
+如需进一步排查，可查看 Hestia Nginx 日志：
 
 ```bash
 tail -f -s0.1 /var/log/hestia/nginx-error.log
 ```
 
-## I changed SSH port and I cannot use the file manager anymore
+## 修改了 SSH 端口后无法使用文件管理器
 
-The SSH port is loaded in a PHP session. Logging out and logging back in will reset the session, fixing the issue.
+SSH 端口会缓存于 PHP 会话中。退出并重新登录以重置会话即可恢复。

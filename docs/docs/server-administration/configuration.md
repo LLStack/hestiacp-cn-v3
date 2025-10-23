@@ -1,121 +1,106 @@
-# Server configuration
+# 服务器配置
 
-## I am not able to login
+## 无法登录
 
-For installing dependencies we use Composer. As are currently not able
-to run it under hestia-php version. We install it via /usr/bin/php. Make
-sure proc_open is allowed in the main php version. In the future we look
-in methods to allow install via composer via hestia-php.
+安装依赖时我们使用 Composer。当前无法在 hestia-php 下运行它，故通过 `/usr/bin/php` 执行。请确保主 PHP 版本允许 `proc_open`。后续会考虑在 hestia-php 下支持 Composer 安装。
 
-## Where can I find more information about the config files?
+## 配置文件参考
 
-A good starting point for every software is to check the official docs:
+建议先阅读各组件官方文档：
 
-- For Nginx: [NGINX Docs](https://nginx.org/en/docs/)
-- For Apache2: [Apache Docs](http://httpd.apache.org/docs/2.4/)
-- For PHP-FPM: [PHP Docs](https://www.php.net/manual/en/install.fpm.configuration.php)
+- Nginx：[官方文档](https://nginx.org/en/docs/)
+- Apache2：[官方文档](http://httpd.apache.org/docs/2.4/)
+- PHP-FPM：[官方文档](https://www.php.net/manual/en/install.fpm.configuration.php)
 
-You could also try [our Forum](https://forum.hestiacp.com)
+也可访问[社区论坛](https://forum.hestiacp.com)。
 
-## Can I use HestiaCP behind Cloudflare CDN?
+## Hestia 能放在 Cloudflare 代理后吗？
 
-By default the [Cloudflare Proxy](https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/) supports only a limited number of ports. This means that Cloudflare will not forward port 8083, which is the default port for Hestia. To change the Hestia port to one that Cloudflare will forward, run this command:
+Cloudflare 仅代理有限端口（见其[端口列表](https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/)）。Hestia 默认端口 8083 不在其中。可将端口改为 Cloudflare 支持的，如：
 
 ```bash
 v-change-sys-port 2083
 ```
 
-You can also disable Cloudflare proxy feature.
+也可以关闭 Cloudflare 的代理功能。
 
-## How to remove unused ethernet ports from RRD?
+## 如何从 RRD 图表中移除未用的网卡端口？
 
 ```bash
 nano /usr/local/hestia/conf/hestia.conf
 ```
 
-Add the following line:
+新增：
 
 ```bash
 RRD_IFACE_EXCLUDE='lo'
 ```
 
-Add network ports as comma separated list
+按需以逗号分隔追加更多端口，然后：
 
 ```bash
 rm /usr/local/hestia/web/rrd/net/*
 systemctl restart hestia
 ```
 
-## What does the “Enforce subdomain ownership” policy mean?
+## “强制子域所有权” 策略是什么？
 
-In Hestia <=1.3.5 and Vesta, it was possible for users to create subdomains from domains that were owned by other users. For example, user Bob could create `bob.alice.com`, even if `alice.com` is owned by Alice. This could cause security issues and therefor we have decided to add a policy to control this behaviour. By default, the policy is enabled.
+在 Hestia <= 1.3.5 与 Vesta 中，用户可以创建属于其他用户主域的子域，如 Bob 可创建 `bob.alice.com`（主域 `alice.com` 属于 Alice）。这存在安全风险，因此新增了控制该行为的策略，默认启用。
 
-You can tweak the policy for a specific domain and user, for example for a domain that has been used for testing:
+你可以针对特定用户与域调整策略，例如某测试域：
 
 ```bash
-# to enable
+# 启用
 v-add-web-domain-allow-users user domain.tld
-# to disable
+# 禁用
 v-delete-web-domain-allow-users user domain.tld
 ```
 
-## Can I restrict access to the `admin` account?
+## 能限制对 `admin` 账户的访问吗？
 
-In Hestia 1.3, we have made it possible to give another user Administrator access. In 1.4, we have given system administrators the option to limit access to the main **System Administrator** account to improve security.
+自 1.3 起可将管理员权限授予其他用户；自 1.4 起，系统管理员可限制对主“系统管理员”账户的访问以提升安全性。
 
-## My server IP has changed, what do I need to do?
+## 服务器 IP 变更后需要做什么？
 
-When a server IP changes, you need to run the following command, which will rebuild all config files:
+运行以下命令重建所有配置：
 
 ```bash
 v-update-sys-ip
 ```
 
-## Unable to bind address
+## Unable to bind address（端口绑定失败）
 
-In rare cases the network service might be slower than Apache2 and or Nginx. In that case, Nginx or Apache2 will refuse to successfully start. You can verify that this is the case by looking at the service’s status:
+少数情况下网络服务启动慢于 Nginx/Apache，导致其无法绑定到 IP。可先查看服务状态：
 
 ```bash
 systemctl status nginx
-
-# Output
-nginx: [emerg] bind to x.x.x.x:80 failed (99: cannot assign requested address)
-```
-
-Or, in case of Apache2:
-
-```bash
+# 或
 systemctl status httpd
-
-# Output
-(99)Cannot assign requested address: AH00072: make_sock: could not bind to address x.x.x.x:8443
 ```
 
-The following command should allow services to assign to non existing IP addresses:
+临时解决：允许绑定到不存在的本地地址：
 
 ```bash
 sysctl -w net.ipv4.ip_nonlocal_bind=1
 ```
 
-## I am unable to monitor processes with Zabbix
+## 无法用 Zabbix 监控进程
 
-For security reasons, users are not allowed to monitor processes from other users by default.
-
-To solve the issue if you use monitoring via Zabbix, edit `/etc/fstab` and modify it to the following, then reboot the server or remount `/proc`:
+默认出于安全考虑，用户不能监控其他用户的进程。若使用 Zabbix，可编辑 `/etc/fstab` 并重启或重新挂载 `/proc`：
 
 ```bash
 proc /proc proc defaults,hidepid=2,gid=zabbix 0 0
 ```
 
-## Error: 24: Too many open files
+## 错误 24：打开的文件过多
 
-If you see an error similar to this:
+若 Nginx 报类似错误：
 
 ```bash
-2022/02/21 15:04:38 [emerg] 51772#51772: open() "/var/log/apache2/domains/domain.tld.error.log" failed (24: Too many open files)
+open() "/var/log/apache2/domains/domain.tld.error.log" failed (24: Too many open files)
 ```
 
-It means that there are too many open files with Nginx. To resolve this issue, edit the Nginx daemon config, then reload the daemons by running `systemctl daemon-reload`:
+请提高进程文件句柄限制。示例：
 
 ```bash
 # /etc/systemd/system/nginx.service.d/override.conf
@@ -123,15 +108,18 @@ It means that there are too many open files with Nginx. To resolve this issue, e
 LimitNOFILE=65536
 ```
 
-Add this to the Nginx config file (Needs to be smaller or equal to `LimitNOFILE`)
+并在 Nginx 配置中设置（需小于等于上面值）：
 
 ```bash
 # /etc/nginx/nginx.conf
 worker_rlimit_nofile 16384
 ```
 
-Restart Nginx with `systemctl restart nginx`, and verify the new limits by running:
+然后：
 
 ```bash
-cat /proc/ < nginx-pid > /limits.
+systemctl daemon-reload
+systemctl restart nginx
 ```
+
+可通过查看 `/proc/<nginx-pid>/limits` 核实新限制。

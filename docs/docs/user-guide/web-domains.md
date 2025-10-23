@@ -1,129 +1,129 @@
-# Web Domains
+# 网站域名
 
-To manage your web domains, navigate to the **Web <i class="fas fa-fw fa-globe-americas"></i>** tab.
+要管理网站域名，请进入 **网站 <i class="fas fa-fw fa-globe-americas"></i>** 选项卡。
 
-## Adding a web domain
+## 新增网站域名
 
-1. Click the **<i class="fas fa-fw fa-plus-circle"></i> Add Web Domain** button.
-2. Enter the domain name in the **Domain** field.
-   - If you wish to manage this domain’s DNS in Hestia, check the box labeled **Create DNS zone**
-   - If you wish to enable mail for this domain, check the box labeled **Enable mail for this domain**.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 新增网站域名**。
+2. 在 **域名** 输入框填写域名。
+   - 若希望在 Hestia 中管理该域名的 DNS，勾选 **创建 DNS 区域**。
+   - 若要为该域启用邮件，勾选 **为此域启用邮件**。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-## Installing an app
+## 安装应用
 
-1. Click the domain name or the <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">edit</span></i> icon that appears on hover.
-2. Click the **<i class="fas fa-fw fa-magic"></i> Quick install App** button in the top right.
-3. Select the application you want to install and click the **Setup** button.
-4. Fill out the fields. If the app uses a database, you will have the option to auto-create a database or use an existing one.
-5. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
-
-::: warning
-Depending on the application you chose to install, this can take 30 seconds or longer. Do not reload or close the tab!
-:::
-
-## Editing a web domain
-
-1. Click the domain name or the <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">edit</span></i> icon that appears on hover.
-2. Make your changes. The options are explained below.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
-
-## Viewing access and error logs
-
-1. Hover over the domain whose logs you want to view.
-2. Click the <i class="fas fa-fw fa-binoculars"><span class="visually-hidden">logs</span></i> icon.
-3. At the top of the page, you have the possibility to download the logs or view the error logs instead.
-
-## Suspending a web domain
-
-1. Hover over the domain you want to suspend.
-2. Click the <i class="fas fa-fw fa-pause"><span class="visually-hidden">suspend</span></i> icon on the right of the web domain.
-
-## Deleting a web domain
-
-1. Hover over the domain you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete user</span></i> icon on the right of the web domain. **Both** the web domain and the linked FTP accounts will get deleted.
-
-## Web domain configuration
-
-### Enabling statistics
-
-1. Chose **awstats** in the selection boxed labelled **Web Statistics**.
-2. If desired, enter a username and password.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
-4. Navigate to `https://domain.tld/vstats/` to view the stats.
-
-### Managing redirections
-
-1. Check the **Enable domain redirection** box.
-2. Select the option you want. When selecting **Redirect visitors to a custom domain or web address** you have to option to select the HTTP status code (301 by default).
+1. 点击域名，或点击悬停时出现的 <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">编辑</span></i> 图标。
+2. 点击右上角 **<i class="fas fa-fw fa-magic"></i> 快速安装应用**。
+3. 选择要安装的应用并点击 **设置**。
+4. 填写相关字段。若应用需要数据库，可选择自动创建或使用已有数据库。
+5. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
 ::: warning
-If your domain is an [internationalized domain name (IDN)](https://en.wikipedia.org/wiki/Internationalized_domain_name) containing special characters, even if you select `www.domain.tld` or `domain.tld`, it will convert the domain to [punycode](https://en.wikipedia.org/wiki/Punycode) and select **Redirect visitors to a custom domain or web address**.
+根据应用不同，安装可能需要 30 秒或更久。请勿刷新或关闭标签页！
 :::
 
-### Enabling SSL
+## 编辑网站域名
 
-1. Check the **Enable SSL for this domain** box.
-2. Check the **Use Let’s Encrypt to obtain SSL certificate** box to use Let’s Encrypt.
-3. Depending on your requirements, you can enable **Enable automatic HTTPS redirection** or **Enable HTTP Strict Transport Security (HSTS)**.
-4. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击域名，或点击悬停时出现的 <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">编辑</span></i> 图标。
+2. 按需修改。各项说明见下文。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-If you want to use your own SSL certificate you can enter the SSL certificate in the text area.
+## 查看访问与错误日志
 
-If you are having issues with enabling Let’s Encrypt, please refer to our [SSL certificates](../server-administration/ssl-certificates) documentation.
+1. 将鼠标悬停在要查看日志的域名上。
+2. 点击 <i class="fas fa-fw fa-binoculars"><span class="visually-hidden">日志</span></i> 图标。
+3. 页面顶部可切换为下载日志或查看错误日志。
 
-### Changing PHP version
+## 暂停网站域名
+
+1. 将鼠标悬停在要暂停的域名上。
+2. 点击右侧 <i class="fas fa-fw fa-pause"><span class="visually-hidden">暂停</span></i> 图标。
+
+## 删除网站域名
+
+1. 将鼠标悬停在要删除的域名上。
+2. 点击右侧 <i class="fas fa-fw fa-trash"><span class="visually-hidden">删除</span></i> 图标。将删除**网站域名及其关联的 FTP 账户**。
+
+## 网站域配置
+
+### 启用统计
+
+1. 在 **网站统计** 下拉框选择 **awstats**。
+2. 按需设置用户名与密码。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
+4. 访问 `https://domain.tld/vstats/` 查看统计。
+
+### 管理重定向
+
+1. 勾选 **启用域名重定向**。
+2. 选择方案。当选择 **重定向到自定义域名或网址** 时，可选择 HTTP 状态码（默认 301）。
+
+::: warning
+若你的域名是包含特殊字符的[国际化域名（IDN）](https://en.wikipedia.org/wiki/Internationalized_domain_name)，即便选择了 `www.domain.tld` 或 `domain.tld`，也会被转换为 [punycode](https://en.wikipedia.org/wiki/Punycode) 并自动切换为 **重定向到自定义域名或网址**。
+:::
+
+### 启用 SSL
+
+1. 勾选 **为该域启用 SSL**。
+2. 勾选 **使用 Let’s Encrypt 获取 SSL 证书** 以使用 Let’s Encrypt。
+3. 按需启用 **自动 HTTPS 重定向** 或 **HTTP 严格传输安全（HSTS）**。
+4. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
+
+如需使用自有证书，可将证书内容粘贴到文本框。
+
+如启用 Let’s Encrypt 遇到问题，请参阅[SSL 证书](../server-administration/ssl-certificates)。
+
+### 切换 PHP 版本
 
 ::: info
-This option is not always available. It may be disabled in the server settings. Please contact your server administrator for more information.
+该选项可能不可用，取决于服务器设置。如需帮助请联系管理员。
 :::
 
-1. Select the desired PHP version in the **Backend Template** field.
+1. 在 **后端模板**（Backend Template）中选择所需 PHP 版本。
 
-### Using a different root directory
+### 使用自定义文档根目录
 
-1. Check the **Custom document root** box.
-2. Select the domain name where you want this domain to point.
-3. Select the path. For example, `/public/` will link to `/home/user/web/domain.tld/public_html/public/`.
+1. 勾选 **自定义文档根目录**。
+2. 选择要指向的域名。
+3. 选择路径。例如 `/public/` 将指向 `/home/user/web/domain.tld/public_html/public/`。
 
-### Additional FTP accounts
+### 附加 FTP 账户
 
-1. Check the **Additional FTP accounts** box.
-2. Enter a username and a password (or generate one). The username will be prefixed by `user_`.
-3. Enter the path the account will be able to access.
-4. Optionally, provide an email address where the login details will be sent.
+1. 勾选 **附加 FTP 账户**。
+2. 输入用户名与密码（或生成）。用户名会自动加上 `user_` 前缀。
+3. 输入账户可访问的路径。
+4. 可选：填写一个邮箱以接收登录信息。
 
-To add another FTP account, click the **Add FTP account** button, then click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+新增更多 FTP 账户：点击 **新增 FTP 账户**，完成后点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-To delete an FTP account, click the **DELETE** link on the right of its name, then click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+删除 FTP 账户：点击其名称右侧的 **DELETE**，然后点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-To change the password, update the password field, then click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+修改密码：更新密码字段后，点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-### Proxy templates
+### 反向代理模板（Proxy templates）
 
 ::: info
-Depending on the server setup, this option may not be available.
+是否可用取决于服务器配置。
 :::
 
-- **default**: All purpose template. Suitable for most usecases.
-- **caching**: Template with proxy cache enabled. Suitable for mostly static content, for example: blogs or news websites.
-- **hosting**: Similar to default.
+- **default**：通用模板，适用于多数场景。
+- **caching**：启用代理缓存，适用于静态内容较多的站点，例如博客或新闻站点。
+- **hosting**：类似 default。
 
-Any custom templates will also show up here.
+任何自定义模板也会出现在此处。
 
 ::: tip
-Any custom templates starting with `caching-` will allow the use of the **<i class="fas fa-fw fa-trash"></i> Purge Nginx Cache** button. Make sure a `.sh` file exists for `caching-my-template` with at least [this content](https://github.com/hestiacp/hestiacp/blob/main/install/deb/templates/web/nginx/caching.sh)
+名称以 `caching-` 开头的自定义模板将启用 **<i class="fas fa-fw fa-trash"></i> 清空 Nginx 缓存** 按钮。确保存在与 `caching-my-template` 对应的 `.sh` 文件，内容至少包含[此示例](https://github.com/hestiacp/hestiacp/blob/main/install/deb/templates/web/nginx/caching.sh)。
 :::
 
-### Web templates
+### Web 模板
 
-For servers running Apache2 and Nginx, the **default** template will work fine.
+当服务器运行 Apache2 与 Nginx 时，**default** 模板通常即可。
 
-For servers running Nginx only, pick the template matching the app name you are going to use.
+仅运行 Nginx 时，请选择与你使用的应用相匹配的模板。
 
-### Managing Nginx caching
+### 管理 Nginx 缓存
 
-When Nginx caching is enabled (using FastCGI cache or with a caching-enabled template), you can purge the cache via the **<i class="fas fa-fw fa-trash"></i> Purge Nginx Cache** button.
+启用 Nginx 缓存（FastCGI 或缓存模板）时，可通过 **<i class="fas fa-fw fa-trash"></i> 清空 Nginx 缓存** 按钮清理缓存。
 
-When using Nginx only, you can enable FastCGI caching using the **Enable FastCGI Cache** box. When checked, an option is shown to determine for how long the cache is considered valid.
+仅使用 Nginx 时，可通过 **启用 FastCGI 缓存** 复选框启用 FastCGI 缓存。勾选后可设置缓存有效时长。

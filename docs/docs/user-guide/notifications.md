@@ -1,5 +1,5 @@
-# Notifications
+# 通知
 
-To view your notifications, click the <i class="fas fa-lg fa-fw fa-bell"><span class="visually-hidden">notification</span></i> icon in the top right.
+要查看通知，点击右上角的 <i class="fas fa-lg fa-fw fa-bell"><span class="visually-hidden">通知</span></i> 图标。
 
-You can delete a notification by clicking the <i class="fas fa-lg fa-fw fa-xmark"><span class="visually-hidden">delete</span></i> icon on the top right.
+要删除通知，点击右上角的 <i class="fas fa-lg fa-fw fa-xmark"><span class="visually-hidden">删除</span></i> 图标。

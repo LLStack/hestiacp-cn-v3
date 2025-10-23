@@ -1,100 +1,100 @@
-# Account
+# 账户
 
-To access your account settings, click the <i class="fas fa-lg fa-fw fa-user-circle"><span class="visually-hidden">user</span></i> button in the top right.
+要访问账户设置，点击右上角的 <i class="fas fa-lg fa-fw fa-user-circle"><span class="visually-hidden">user</span></i> 按钮。
 
-## Security
+## 安全
 
-### Password
+### 密码
 
-The password requirements are as follows:
+密码要求如下：
 
-- At least 8 characters, 14 or more are recommended.
-- At least 1 number.
-- At least 1 capital letter and 1 lowercase letter.
+- 至少 8 个字符，建议 14 个或以上。
+- 至少包含 1 个数字。
+- 至少包含 1 个大写字母和 1 个小写字母。
 
-If you want to generate a secure password, you can use [1Password’s generator](https://1password.com/password-generator/).
+如果你想生成强密码，可以使用 [1Password 的密码生成器](https://1password.com/password-generator/)。
 
-### Two-factor authentication (2FA)
+### 双重认证（2FA）
 
-1. In your account settings, check the box labeled **Enable two-factor authentication**.
-2. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
-3. Scan the QR code using an authentication app.
-4. Save your **Account Recovery Code** somewhere safe, in case you lose access to your authenticator.
+1. 在账户设置中，勾选 **启用双重认证**。
+2. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存** 按钮。
+3. 使用认证应用扫描二维码。
+4. 将你的 **账户恢复代码** 保存在安全的地方，以防丢失认证器访问权限。
 
-::: details Need a 2FA app?
-If you do not have an authenticator app, here are a couple of recommendations.
+::: details 需要 2FA 应用？
+如果你还没有验证器应用，以下是一些推荐：
 
-- iCloud Keychain – [Windows](https://9to5mac.com/2022/07/25/icloud-passwords-windows-2fa-code/), [macOS](https://9to5mac.com/2021/11/16/use-safari-password-manager-and-2fa-autofill/), [iOS](https://9to5mac.com/2022/03/07/use-ios-15-2fa-code-generator-plus-autofill-iphone/)
-- [Tofu Authenticator](https://www.tofuauth.com/) – Open-source, iOS only
-- [Aegis Authenticator](https://getaegis.app/) – Open-source, Android only
+- iCloud 钥匙串 — [Windows](https://9to5mac.com/2022/07/25/icloud-passwords-windows-2fa-code/)、[macOS](https://9to5mac.com/2021/11/16/use-safari-password-manager-and-2fa-autofill/)、[iOS](https://9to5mac.com/2022/03/07/use-ios-15-2fa-code-generator-plus-autofill-iphone/)
+- [Tofu Authenticator](https://www.tofuauth.com/) — 开源，仅 iOS
+- [Aegis Authenticator](https://getaegis.app/) — 开源，仅 Android
 - [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en&co=GENIE.Platform%3DAndroid)
 - [Microsoft Authenticator](https://www.microsoft.com/en-ca/security/mobile-authenticator-app)
-- [1Password](https://1password.com/) – Paid password manager
-- [Bitwarden](https://bitwarden.com/) – Password manager. 2FA in premium plan only
-- [Vaultwarden](https://docs.cloudron.io/apps/vaultwarden) (AGPL, [self-hosted](https://hub.docker.com/r/vaultwarden/server)), optionally with [Bitwarden](https://linuxiac.com/how-to-install-vaultwarden-password-manager-with-docker) clients
-- [FreeOTP+](https://github.com/helloworld1/FreeOTPPlus) - Open Source, Android only [F-Droid](https://f-droid.org/en/packages/org.liberty.android.freeotpplus/)
+- [1Password](https://1password.com/) — 付费密码管理器
+- [Bitwarden](https://bitwarden.com/) — 密码管理器；2FA 仅在高级版
+- [Vaultwarden](https://docs.cloudron.io/apps/vaultwarden)（AGPL，[自托管](https://hub.docker.com/r/vaultwarden/server)），可配合 [Bitwarden](https://linuxiac.com/how-to-install-vaultwarden-password-manager-with-docker) 客户端
+- [FreeOTP+](https://github.com/helloworld1/FreeOTPPlus) — 开源，仅 Android（[F-Droid](https://f-droid.org/en/packages/org.liberty.android.freeotpplus/)）
 
 :::
 
-### Login restrictions
+### 登录限制
 
-Hestia has the following options to help you secure your account:
+Hestia 提供以下选项帮助你保护账户安全：
 
-- Disable login into the account.
-- Whitelist your IP address to login into your account.
+- 禁用该账户的登录。
+- 将你的 IP 地址加入白名单，仅允许该 IP 登录账户。
 
-### Security logs
+### 安全日志
 
-The security logs contain various information, such as: changes to web domains, API access, backup creation, etc. Click the **<i class="fas fa-fw fa-history"></i> Logs** button to view them.
+安全日志包含多种信息，例如：网站域变更、API 访问、备份创建等。点击 **<i class="fas fa-fw fa-history"></i> 日志** 按钮查看。
 
-### Login history
+### 登录历史
 
-On the security logs page, click the **<i class="fas fa-fw fa-binoculars"></i> Login history** button to see the login history. The history contains the time of login, IP address, and user agent of the browser that was used.
+在安全日志页面，点击 **<i class="fas fa-fw fa-binoculars"></i> 登录历史** 按钮查看登录记录。记录包含登录时间、IP 地址与所使用浏览器的 User-Agent。
 
-## SSH keys
+## SSH 密钥
 
-Click the **<i class="fas fa-fw fa-key"></i> Manage SSH keys** button to view the installed keys.
+点击 **<i class="fas fa-fw fa-key"></i> 管理 SSH 密钥** 按钮查看已安装的密钥。
 
-### Adding an SSH key
+### 添加 SSH 密钥
 
-1. Click the **<i class="fas fa-fw fa-plus-circle"></i> Add SSH key** button.
-2. Copy your public key in the text area.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 添加 SSH 密钥** 按钮。
+2. 将你的公钥粘贴到文本区域。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存** 按钮。
 
-### Deleting an SSH key
+### 删除 SSH 密钥
 
-1. Hover over the SSH key you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> icon on the right of the SSH ID.
+1. 将鼠标悬停在要删除的 SSH 密钥上。
+2. 点击 SSH ID 右侧的 <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> 图标。
 
-::: details Need to generate a key?
-If you do not have an SSH key, here are a couple of ways to generate one.
+::: details 需要生成密钥？
+如果你还没有 SSH 密钥，可以通过以下方式生成：
 
-- For Windows: [Putty](https://www.ssh.com/academy/ssh/putty/windows/puttygen#running-puttygen).
-- For macOS and Linux use `ssh-keygen`.
+- Windows：使用 [Putty](https://www.ssh.com/academy/ssh/putty/windows/puttygen#running-puttygen)
+- macOS 或 Linux：使用 `ssh-keygen`
 
-You can also use an app to manage them:
+你也可以使用应用管理密钥：
 
 - [1Password](https://developer.1password.com/docs/ssh/manage-keys/)
 - [Termius](https://www.termius.com/)
 
 :::
 
-## API access keys
+## API 访问密钥
 
 ::: info
-This option is disabled by default for standard users. An administrator needs to enable it in the server settings.
+该选项对普通用户默认禁用。需要管理员在服务器设置中启用。
 :::
 
-Click the **<i class="fas fa-fw fa-key"></i> Access Keys** button to view the access keys. Access keys are used for the API to autenticate instead of using the username and password.
+点击 **<i class="fas fa-fw fa-key"></i> 访问密钥** 按钮查看密钥。访问密钥用于 API 鉴权，以替代用户名和密码。
 
-### Creating an access key
+### 创建访问密钥
 
-1. Click the **<i class="fas fa-fw fa-plus-circle"></i> Add Access key** button.
-2. Select the permission sets you want to enable.
-3. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
-4. Copy the access key and the secret key. Make sure to save the secret key somewhere safe as it **cannot** be viewed once the page is closed.
+1. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 新增访问密钥** 按钮。
+2. 选择你希望启用的权限集。
+3. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存** 按钮。
+4. 复制访问密钥与密钥秘钥。请务必安全保存秘钥，因为在关闭页面后将**无法**再次查看。
 
-### Deleting an access key
+### 删除访问密钥
 
-1. Hover over the access key you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> icon on the right of the access key.
+1. 将鼠标悬停在要删除的访问密钥上。
+2. 点击访问密钥右侧的 <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> 图标。

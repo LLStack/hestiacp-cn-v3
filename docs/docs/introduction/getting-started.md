@@ -1,84 +1,84 @@
-# Getting Started
+# 快速开始
 
-This section will help you get Hestia installed on your server. If you already have Hestia installed and are just looking for options, you can skip this page.
-
-::: warning
-The installer needs to be run as **root**, either directly from the terminal or remotely, using SSH. If you do not do this, the installer will not proceed.
-:::
-
-## Requirements
+本节将帮助你在服务器上安装 Hestia。如果你已经安装了 Hestia，只是想查看安装选项，可以直接跳过此页。
 
 ::: warning
-Hestia must be installed on top of a fresh operating system installation to ensure proper functionality.
-See custom installation below for further details.
+安装程序必须以 **root** 身份运行，可以直接在终端执行，或通过 SSH 远程执行。否则安装将不会继续。
 :::
 
-|                      | Minimum                                    | Recommended                          |
-| -------------------- | ------------------------------------------ | ------------------------------------ |
-| **CPU**              | 1 core, 64-bit                             | 4 cores                              |
-| **Memory**           | 1 GB (no SpamAssassin and ClamAV)          | 4 GB                                 |
-| **Disk**             | 10 GB HDD                                  | 40 GB SSD                            |
-| **Operating System** | Debian 11 or 12<br>Ubuntu 22.04, 24.04 LTS | Latest Debian <br> Latest Ubuntu LTS |
+## 系统要求
 
 ::: warning
-Hestia only runs on AMD64 / x86_64 and ARM64 / aarch64 processors. It also requires a 64bit operating system!
-We currently do not support i386 or ARM7-based processors.
+为保证稳定性与正确性，Hestia 必须安装在全新安装的操作系统之上。
+如需更多灵活性，请参见下方“自定义安装”。
 :::
 
-### Supported operating systems
-
-- Debian 11 or 12
-- Ubuntu 22.04 or 24.04
+|              | 最低配置                                   | 推荐配置                         |
+| ------------ | ------------------------------------------ | -------------------------------- |
+| **CPU**      | 1 核，64 位                                | 4 核                             |
+| **内存**     | 1 GB（不安装 SpamAssassin 与 ClamAV）      | 4 GB                             |
+| **磁盘**     | 10 GB HDD                                  | 40 GB SSD                        |
+| **操作系统** | Debian 11 或 12<br>Ubuntu 22.04、24.04 LTS | 最新 Debian <br> 最新 Ubuntu LTS |
 
 ::: warning
-Hestia does not support non-LTS Operating systems. If you install it on, for example, Ubuntu 23.10, you will not receive support from us.
+Hestia 仅支持 AMD64 / x86_64 与 ARM64 / aarch64 架构，并需要 64 位操作系统！
+当前不支持 i386 或 ARM7 架构处理器。
 :::
 
-## Regular installation
+### 支持的操作系统
 
-Interactive installer that will install the default Hestia software configuration.
+- Debian 11 或 12
+- Ubuntu 22.04 或 24.04
 
-### Step 1: Download
+::: warning
+Hestia 不支持非 LTS 版本的操作系统。例如若安装在 Ubuntu 23.10，将不提供官方支持。
+:::
 
-Download the installation script for the latest release:
+## 常规安装
+
+交互式安装程序将安装 Hestia 的默认软件配置。
+
+### 步骤 1：下载
+
+下载最新版本的安装脚本：
 
 ```bash
 wget https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh
 ```
 
-If the download fails due to an SSL validation error, please be sure you've installed the ca-certificate package on your system - you can do this with the following command:
+如果因 SSL 校验错误导致下载失败，请确保系统已安装 ca-certificates 软件包，可使用以下命令进行安装：
 
 ```bash
 apt-get update && apt-get install ca-certificates
 ```
 
-### Step 2: Run
+### 步骤 2：执行
 
-To begin the installation process, simply run the script and follow the on-screen prompts:
+开始安装时，运行脚本并按照屏幕提示进行：
 
 ```bash
 bash hst-install.sh
 ```
 
-You will receive a welcome email at the address specified during installation (if applicable) and on-screen instructions after the installation is completed to log in and access your server.
+安装完成后，你将收到安装时填写邮箱的欢迎邮件（如适用），并在屏幕上看到登录访问服务器的说明。
 
-## Custom installation
+## 自定义安装
 
-If you want to customise which software gets installed, or want to run an unattended installation, you will need to run a custom installation.
+如果你希望自定义要安装的软件，或进行无人值守安装，请使用自定义安装方式。
 
-To view a list of available options, run
+查看可用选项列表：
 
 ```bash
 bash hst-install.sh -h
 ```
 
-### List of installation options
+### 安装选项列表
 
 ::: tip
-An easier way to choose your installation options is by using the [Install script generator](/install).
+更简单的方式是使用[安装脚本生成器](/install)来选择安装选项。
 :::
 
-To choose what software gets installed, you can provide flags to the installation script. You can view the full list of options below.
+要选择安装的软件，可向安装脚本传入参数。完整选项如下：
 
 ```bash
 -a, --apache Install Apache [yes | no] default: yes
@@ -112,11 +112,11 @@ To choose what software gets installed, you can provide flags to the installatio
 -h, --help Print this help
 ```
 
-:::tip
-Option --multiphp (Multi PHP) also accepts a comma seperated list of PHP versions. For example: --multiphp 8.3,8.4 will install PHP8.3 and PHP8.4
+::: tip
+--multiphp（多 PHP）选项也可接受用逗号分隔的 PHP 版本列表。例如：--multiphp 8.3,8.4 将安装 PHP 8.3 与 PHP 8.4
 :::
 
-#### Example
+#### 示例
 
 ```bash
 bash hst-install.sh \
@@ -132,18 +132,18 @@ bash hst-install.sh \
 	--multiphp '8.2,8.3,8.4'
 ```
 
-This command will install Hestia in French with the following software:
+上述命令将以法语安装 Hestia，并包含以下软件：
 
-- Nginx Web Server
-- PHP-FPM Application Server (PHP version 8.2, 8.3 and 8.4)
-- MariaDB Database Server
-- IPtables Firewall + Fail2Ban Intrusion prevention software
-- Vsftpd FTP Server
-- Exim Mail Server
-- Dovecot POP3/IMAP Server
+- Nginx Web 服务器
+- PHP-FPM 应用服务器（PHP 版本 8.2、8.3 与 8.4）
+- MariaDB 数据库服务器
+- iptables 防火墙 + Fail2Ban 入侵防护
+- Vsftpd FTP 服务器
+- Exim 邮件服务器
+- Dovecot POP3/IMAP 服务器
 
-## What’s next?
+## 接下来做什么？
 
-By now, you should have a Hestia installation on your server. You are ready to add new users, so that you (or they) can add new websites on your server.
+至此，你应已在服务器上完成 Hestia 的安装。现在可以创建新用户，随后你（或他们）即可在服务器上添加新网站。
 
-To access your control panel, navigate to `https://host.domain.tld:8083` or `http://your.public.ip.address:8083`
+访问控制面板：转到 `https://host.domain.tld:8083` 或 `http://your.public.ip.address:8083`

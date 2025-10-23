@@ -2,20 +2,20 @@
 
 /** @type {FeatureListItem[]} */
 export const users = [
-	{ text: 'Support for SFTP and SSH chroot jails' },
-	{ text: 'Two-Factor Authentication support for the Admin Panel' },
-	{ text: 'SSH keys for login via SFTP and SSH' },
+	{ text: '支持 SFTP 与 SSH chroot 隔离' },
+	{ text: '管理面板支持双重认证（2FA）' },
+	{ text: '通过 SFTP 与 SSH 使用 SSH 密钥登录' },
 ];
 
 /** @type {FeatureListItem[]} */
 export const webDomains = [
-	{ text: 'Nginx FastCGI cache support for Nginx + PHP-FPM' },
-	{ text: 'Nginx Proxy cache support for Nginx + Apache2' },
-	{ text: 'Per-domain TLS certificates for web domains' },
-	{ text: 'MultiIP support for Web/Mail/DNS' },
-	{ text: 'Support for PHP  version 5.6 up to 8.3 with PHP8.2 as default' },
+	{ text: 'Nginx + PHP-FPM 支持 Nginx FastCGI 缓存' },
+	{ text: 'Nginx + Apache2 支持 Nginx 代理缓存' },
+	{ text: '网站域可按域配置 TLS 证书' },
+	{ text: 'Web/邮件/DNS 支持多 IP' },
+	{ text: '支持 PHP 5.6 至 8.3（默认 PHP 8.2）' },
 	{
-		text: 'One-Click Install Apps (Via CLI or Admin Panel)',
+		text: '一键安装应用（通过 CLI 或管理面板）',
 		items: [
 			{ text: 'WordPress' },
 			{ text: 'Dokuwiki' },
@@ -34,34 +34,32 @@ export const webDomains = [
 
 /** @type {FeatureListItem[]} */
 export const mail = [
-	{
-		text: 'Per-domain TLS certificates for inbound and outbound mail services (Exim 4, Dovecot, Webmail)',
-	},
-	{ text: 'SMTP relay setup for Exim in case port 25 is blocked by the provider' },
-	{ text: 'Rate limit adjustable per user or email account' },
-	{ text: 'Let’s Encrypt support for mail domains' },
-	{ text: 'Latest version of Roundcube' },
-	{ text: 'Optional SnappyMail installation' },
+	{ text: '入站与出站邮件服务（Exim 4、Dovecot、Webmail）按域配置 TLS 证书' },
+	{ text: '当服务商屏蔽 25 端口时，可为 Exim 配置 SMTP 中继' },
+	{ text: '可按用户或邮箱账户设置速率限制' },
+	{ text: '邮件域支持 Let’s Encrypt 证书' },
+	{ text: '内置最新版 Roundcube' },
+	{ text: '可选安装 SnappyMail' },
 ];
 
 /** @type {FeatureListItem[]} */
 export const dns = [
-	{ text: 'Create your own nameservers' },
-	{ text: 'Easy DNS cluster setup' },
-	{ text: 'Support for DNSSEC on domains' },
+	{ text: '创建你自己的名称服务器' },
+	{ text: '轻松搭建 DNS 集群' },
+	{ text: '支持域名启用 DNSSEC' },
 ];
 
 /** @type {FeatureListItem[]} */
 export const databases = [
-	{ text: 'Support for MariaDB 10.2 -> 10.11 with 10.11 as default' },
-	{ text: 'Support for MySQL 8' },
-	{ text: 'Support for PostgreSQL' },
-	{ text: 'Latest version of phpMyAdmin and phpPgAdmin' },
+	{ text: '支持 MariaDB 10.2 → 10.11（默认 10.11）' },
+	{ text: '支持 MySQL 8' },
+	{ text: '支持 PostgreSQL' },
+	{ text: '内置最新版 phpMyAdmin 与 phpPgAdmin' },
 ];
 
 /** @type {FeatureListItem[]} */
 export const serverAdmin = [
 	{
-		text: "Automated backups to SFTP, FTP and via Rclone with 50+ <a href='https://rclone.org/overview/'>Cloud storage providers</a>",
+		text: "通过 SFTP、FTP 或 Rclone 进行自动备份，支持 50+ <a href='https://rclone.org/overview/'>云存储服务商</a>",
 	},
 ];

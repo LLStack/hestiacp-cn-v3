@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Install
+title: 安装
 ---
 
 <script setup>
@@ -11,10 +11,10 @@ title: Install
 
 <InstallPage>
   <PageHeader>
-    <template #title>Install</template>
+    <template #title>安装</template>
     <template #aside>
       <a class="header-button" href="./docs/introduction/getting-started.html#requirements">
-        View requirements
+        查看系统要求
       </a>
     </template>
   </PageHeader>

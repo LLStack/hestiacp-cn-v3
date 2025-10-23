@@ -1,12 +1,12 @@
-# Customisation
+# 自定义与扩展
 
 ::: warning
-We currently only support changing the layout via CSS. You can customise HTML files and templates, but they **will** be overwritten during updates, so make sure to [set up hooks](#running-commands-before-and-after-updates) to restore your changes after an update.
+目前仅支持通过 CSS 修改界面布局。你可以修改 HTML 与模板文件，但它们在升级时会被覆盖。请务必[使用钩子](#在升级前后执行命令)在升级后还原自定义内容。
 :::
 
-## Adding a new theme
+## 新增主题
 
-Create a new theme in `/usr/local/hestia/web/css/themes/custom/my_theme.css`
+在 `/usr/local/hestia/web/css/themes/custom/my_theme.css` 创建自定义主题，例如：
 
 ```css
 .page-login,
@@ -18,41 +18,41 @@ Create a new theme in `/usr/local/hestia/web/css/themes/custom/my_theme.css`
 }
 ```
 
-## Customising a default theme
+## 自定义默认主题
 
-Changes to default themes are always overwritten during updates. Custom CSS files can be uploaded to `/usr/local/hestia/web/css/custom` in `.css` or `.min.css` format.
+对默认主题的直接改动会在升级时被覆盖。请将自定义样式上传到 `/usr/local/hestia/web/css/custom`，支持 `.css` 或 `.min.css`。
 
-Please note that `default.css` base theme is always loaded. Other default and custom themes override the rules in this file.
+注意：基础主题 `default.css` 总会被加载，其他默认与自定义主题会覆盖其中规则。
 
-## Customising the _Domain not found_ page
+## 自定义 “域名未找到” 页面
 
-The _Domain not found_ page is located in `/var/www/html/index.html`. You can edit it using the following command:
+相关页面位于 `/var/www/html/index.html`，可通过下列命令编辑：
 
 ```bash
 nano /var/www/html/index.html
 ```
 
-## Customising the default domain skeleton structure
+## 自定义默认站点骨架（skeleton）
 
-The default structure that will be added to a domain when it gets created is located in `/usr/local/hestia/data/templates/web/skel/public_html`.
+新建域名时复制的默认目录结构位于 `/usr/local/hestia/data/templates/web/skel/public_html`。
 
-## Running commands before and after updates
+## 在升级前后执行命令
 
-With the release of Hestia 1.4.6 we have added pre-install and post-install hooks. For example, you can use hooks to:
+自 1.4.6 起支持安装前/后钩子，可用于：
 
-- Disable and enable demo mode before and after an update.
-- Restore a customised skeleton page.
+- 在升级前后临时关闭/开启演示模式。
+- 还原自定义的 skeleton 页面。
 
-Hooks are located in one of the following files:
+钩子文件路径：
 
 - `/etc/hestiacp/hooks/pre_install.sh`
 - `/etc/hestiacp/hooks/post_install.sh`
 
 ::: tip
-Don’t forget to make the file executable by running `chmod +x /etc/hestiacp/hooks/[file].sh`.
+不要忘记赋予可执行权限：`chmod +x /etc/hestiacp/hooks/[file].sh`。
 :::
 
-For example, to disable demo mode on pre-install:
+示例（在 pre_install 中关闭演示模式）：
 
 ```bash /etc/hestiacp/hooks/pre_install.sh
 #!/bin/bash
@@ -60,5 +60,5 @@ sed -i "s|^DEMO_MODE=.*'|DEMO_MODE='no'|g" $HESTIA/conf/hestia.conf
 ```
 
 ::: warning
-If you use custom error documents you will have to rebuild all websites again!
+如果使用了自定义错误文档，升级后需要重建所有网站！
 :::

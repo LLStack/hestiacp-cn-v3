@@ -1,156 +1,154 @@
-# Mail Domains
+# 邮件域
 
-To manage your mail domains, navigate to the **Mail <i class="fas fa-fw fa-mail-bulk"></i>** tab.
+要管理邮件域，请进入 **邮件 <i class="fas fa-fw fa-mail-bulk"></i>** 选项卡。
 
-## Adding a mail domain
+## 新增邮件域
 
-1. Click the **<i class="fas fa-fw fa-plus-circle"></i> Add Mail domain** button.
-2. Enter your domain name.
-3. Select the options you want to use.
-4. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 新增邮件域**。
+2. 输入域名。
+3. 选择需要的选项。
+4. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-## Editing a mail domain
+## 编辑邮件域
 
-1. Hover over the domain you want to edit.
-2. Click the <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">edit</span></i> icon on the right of the mail domain.
-3. Edit the fields.
-4. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 将鼠标悬停在要编辑的域名上。
+2. 点击右侧 <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">编辑</span></i> 图标。
+3. 编辑字段。
+4. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-## Suspending a web domain
+## 暂停邮件域
 
-1. Hover over the domain you want to suspend.
-2. Click the <i class="fas fa-fw fa-pause"><span class="visually-hidden">suspend</span></i> icon on the right of the mail domain.
-3. To unsuspend it, click the <i class="fas fa-fw fa-play"><span class="visually-hidden">unsuspend</span></i> icon on the right of the mail domain.
+1. 将鼠标悬停在要暂停的域名上。
+2. 点击右侧 <i class="fas fa-fw fa-pause"><span class="visually-hidden">暂停</span></i> 图标。
+3. 取消暂停：点击右侧 <i class="fas fa-fw fa-play"><span class="visually-hidden">取消暂停</span></i> 图标。
 
-## Deleting a web domain
+## 删除邮件域
 
-1. Hover over the domain you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> icon on the right of the mail domain. Both the mail domain and **all** the mail accounts will get deleted.
+1. 将鼠标悬停在要删除的域名上。
+2. 点击右侧 <i class="fas fa-fw fa-trash"><span class="visually-hidden">删除</span></i> 图标。将删除该邮件域及其下的**所有**邮箱账户。
 
-## Mail domain configuration
+## 邮件域配置
 
-### Webmail client
+### Webmail 客户端
 
-We currently support Roundcube and SnappyMail (optional install). You can also disable webmail access.
+当前支持 Roundcube 与 SnappyMail（可选安装）。也可禁用 Webmail 访问。
 
-### Catch all email
+### 捕获所有邮件（Catch‑all）
 
-This email address will receive all emails for this domain that are sent to users that don’t exist.
+为不存在的收件人接收邮件的邮箱地址。
 
-### Rate limit
-
-::: info
-This option is only available for the admin user.
-:::
-
-Set the limit for the amount of emails an account can send per hour.
-
-### Spam filter
+### 发送限速（Rate limit）
 
 ::: info
-This option is not always available.
+此选项仅对 admin 用户可见。
 :::
 
-Enable Spam Assassin for this domain.
+设置单个账户每小时可发送邮件的上限。
 
-### Antivirus
+### 垃圾邮件过滤器
 
 ::: info
-This option is not always available
+该选项并非总是可用。
 :::
 
-Enable ClamAV for this domain.
+为该域启用 SpamAssassin。
+
+### 杀毒
+
+::: info
+该选项并非总是可用。
+:::
+
+为该域启用 ClamAV。
 
 ### DKIM
 
-Enable DKIM for this domain.
+为该域启用 DKIM。
 
 ### SSL
 
-1. Check the **Enable SSL for this domain** box.
-2. Check the **Use Let’s Encrypt to obtain SSL certificate** box to use Let’s Encrypt.
-3. Depending on your requirements, you can enable **Enable automatic HTTPS redirection** or **Enable HTTP Strict Transport Security (HSTS)**.
-4. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 勾选 **为该域启用 SSL**。
+2. 勾选 **使用 Let’s Encrypt 获取 SSL 证书** 以使用 Let’s Encrypt。
+3. 按需启用 **自动 HTTPS 重定向** 或 **HTTP 严格传输安全（HSTS）**。
+4. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-If you want to use your own SSL certificate you can enter the SSL certificate in the text area.
+如需使用自有证书，可将证书内容粘贴到文本框。
 
-If you are having issues with enabling Let’s Encrypt, please refer to our [SSL certificates](../server-administration/ssl-certificates) documentation.
+如启用 Let’s Encrypt 遇到问题，请参阅[SSL 证书](../server-administration/ssl-certificates)。
 
-### SMTP relay
+### SMTP 中继
 
-This option allows the user to use a different SMTP relay than server defined one or bypass the default Exim route. This can enhance deliverability.
+允许用户为该域配置与服务器默认不同的 SMTP 中继，或绕过默认 Exim 路由，以提升投递率。
 
-1. Check the **SMTP Relay** box and a form will appear.
-2. Enter the information from your SMTP relay provider.
+1. 勾选 **SMTP Relay**，将出现表单。
+2. 输入你的中继服务商提供的信息。
 
-### Get DNS records
+### 获取 DNS 记录
 
-If you don’t host your DNS in Hestia, but you still want to use its email service, click the <i class="fas fa-atlas"><span class="visually-hidden">DNS</span></i> icon to view the DNS records you need to add to your DNS provider.
+若不在 Hestia 中托管 DNS，但仍要使用其邮件服务，点击 <i class="fas fa-atlas"><span class="visually-hidden">DNS</span></i> 图标以查看需要添加到 DNS 服务商的记录。
 
-### Webmail
+### Webmail 访问
 
-By default, the webmail is accessible at `https://webmail.domain.tld` or `https://mail.domain.tld` when SSL is enabled. Otherwise use `http://` instead.
+默认启用 SSL 时，可通过 `https://webmail.domain.tld` 或 `https://mail.domain.tld` 访问；否则使用 `http://`。
 
-## Adding a mail account to a domain
+## 为域新增邮箱账户
 
-1. Click the mail domain.
-2. Click **<i class="fas fa-fw fa-plus-circle"></i> Add Mail account** button.
-3. Enter the account name (without the `@domain.tld` part) and a password.
-4. Optionally, supply an email address that will receive the login details.
-5. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+1. 点击该邮件域。
+2. 点击 **<i class="fas fa-fw fa-plus-circle"></i> 新增邮箱账户**。
+3. 输入账户名（不含 `@domain.tld` 部分）与密码。
+4. 可选：填写一个邮箱以接收登录信息。
+5. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-If required you can also modify the **Advanced Options**, which are explained below.
+如有需要，可修改右侧的 **高级选项**。页面右侧还展示了通过 SMTP、IMAP、POP3 的连接方式。
 
-On the right side, you can see the methods to access your mail account via SMTP, IMAP and POP3.
+## 编辑邮箱账户
 
-## Editing a mail account
+1. 将鼠标悬停在要编辑的账户上。
+2. 点击账户右侧的 <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">编辑</span></i> 图标。
+3. 编辑字段。
+4. 点击右上角 **<i class="fas fa-fw fa-save"></i> 保存**。
 
-1. Hover over the account you want to edit.
-2. Click the <i class="fas fa-fw fa-pencil-alt"><span class="visually-hidden">edit</span></i> icon on the right of the mail account.
-3. Edit the fields.
-4. Click the **<i class="fas fa-fw fa-save"></i> Save** button in the top right.
+## 暂停邮箱账户
 
-## Suspending a mail account
+1. 将鼠标悬停在要暂停的账户上。
+2. 点击账户右侧的 <i class="fas fa-fw fa-pause"><span class="visually-hidden">暂停</span></i> 图标。
+3. 取消暂停：点击账户右侧的 <i class="fas fa-fw fa-play"><span class="visually-hidden">取消暂停</span></i> 图标。
 
-1. Hover over the account you want to suspend.
-2. Click the <i class="fas fa-fw fa-pause"><span class="visually-hidden">suspend</span></i> icon on the right of the mail account.
-3. To unsuspend it, click the <i class="fas fa-fw fa-play"><span class="visually-hidden">unsuspend</span></i> icon on the right of the mail account.
+## 删除邮箱账户
 
-## Deleting a mail account
+1. 将鼠标悬停在要删除的账户上。
+2. 点击账户右侧的 <i class="fas fa-fw fa-trash"><span class="visually-hidden">删除</span></i> 图标。
 
-1. Hover over the account you want to delete.
-2. Click the <i class="fas fa-fw fa-trash"><span class="visually-hidden">delete</span></i> icon on the right of the mail account.
+## 邮箱账户配置
 
-## Mail account configuration
+### 配额（Quota）
 
-### Quota
+账户允许使用的最大空间，包括邮件、联系人等。
 
-The maximum space the account is allowed to use. This includes mail, contacts, etc.
+### 别名（Aliases）
 
-### Aliases
+添加别名以将邮件重定向到主账户。仅输入用户名，例如 `alice`。
 
-Add an alias to redirect mail to the main account. Enter the username only. For example: `alice`.
+### 丢弃所有邮件
 
-### Discard all mail
+所有入站邮件均不转发且直接删除。
 
-All incoming mail will not get forwarded and will get deleted.
+### 不存储转发邮件
 
-### Do not store forwarded mail
+开启后，所有已转发邮件将被删除。
 
-If this option is selected, all forwarded mail will get deleted.
+### 自动回复
 
-### Auto-Reply
+配置自动回复。
 
-Setup an auto-reply.
+### 转发邮件
 
-### Forward mail
-
-Forward all incoming mail to the entered email address.
+将所有入站邮件转发到指定邮箱地址。
 
 ::: warning
-A lot of spam filters may flag the forwarded mail as spam by default!
+许多垃圾邮件过滤器默认会将转发邮件标记为垃圾邮件！
 :::
 
-### Rate limit
+### 发送限速（Rate limit）
 
-Set the limit for the amount of emails an account can send per hour.
+设置该账户每小时可发送的邮件量上限。

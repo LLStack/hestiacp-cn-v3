@@ -1,16 +1,16 @@
-# Statistics
+# 统计
 
-To access the statistics, click the **<i class="fas fa-fw fa-chart-line"></i> Statistics** button in the top left.
+要查看统计信息，点击左上角 **<i class="fas fa-fw fa-chart-line"></i> 统计** 按钮。
 
-This page will show the current user’s statistics, grouped per month. Here are the available statistics:
+本页面按月展示当前用户的统计信息，包括：
 
-- Bandwidth usage
-- Assigned IP addresses
-- Disk usage, split by component
-- Number of web domains and aliases
-- Number of domains using SSL
-- Number of DNS zones and records
-- Number of mail domains and accounts
-- Number of databases
-- Number of cron jobs
-- Number of backups
+- 带宽使用
+- 已分配 IP 地址
+- 各组件磁盘用量
+- 网站域与别名数量
+- 使用 SSL 的域名数量
+- DNS 区域与记录数量
+- 邮件域与邮箱账户数量
+- 数据库数量
+- 定时任务数量
+- 备份数量

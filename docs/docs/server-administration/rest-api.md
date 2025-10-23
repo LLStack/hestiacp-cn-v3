@@ -1,110 +1,102 @@
 # REST API
 
-The Hestia REST API is available to perform core functions of the Control Panel. For example, we use it internally to synchronise DNS clusters and to integrate the WHMCS billing system. The API can also be used to create new user accounts, domains, databases or even to build an alternative web interface.
+Hestia 的 REST API 覆盖面板核心能力（我们内部用于 DNS 集群同步与 WHMCS 集成等）。你可用它创建用户、域名、数据库，甚至构建替代的 Web 界面。
 
-The [API reference](../reference/api) provides PHP code samples demonstrating how you can integrate the API into your application or script. However, you also can use any other language to communicate with the API.
+参见[API 参考](../reference/api) 获取 PHP 代码示例；也可使用任意语言调用 API。
 
-With the release of Hestia v1.6.0, we have introduced a more advanced API system and it will allow non-admin users to use specific commands.
+自 v1.6.0 起，我们引入了更灵活的 API 体系，允许非管理员用户按权限执行特定命令。
 
-## I’m unable to connect to the API
+## 无法连接 API？
 
-With the release of Hestia v1.4.0, we have decided the security needed to be tightened. If you want to connect to the API from a remote server, you will first need to whitelist its IP address. To add multiple addresses, separate them with a new line. To bypass the ip filtering, remove any existing ips and write : `allow-all`
+自 v1.4.0 起，为增强安全性，远程主机需先在服务器设置中加入 “允许访问 API 的 IP”。多个地址用换行分隔。要跳过 IP 过滤，可清空列表并写入 `allow-all`。
 
-## Can I disable the API?
+## 能禁用 API 吗？
 
-Yes, you can disable the API via the server settings. The file will be deleted from the server and all connections will get ignored. Please note that some functions may not work with the API disabled.
+可以。可在服务器设置中禁用 API（API 文件将被移除，连接被忽略）。注意禁用后部分功能不可用。
 
-## Password vs API key vs access keys
+## 密码 vs API key vs 访问密钥（Access Keys）
 
-### Access keys
+### 访问密钥（Access Keys）
 
-- User-specific.
-- Can limit permissions. For example only `v-purge-nginx-cache`.
-- Ability to disable login via other methods but still allow the use of api keys
-- Can be restricted to admin user only or allowed for all users
+- 绑定到特定用户。
+- 可精确限制权限（如仅 `v-purge-nginx-cache`）。
+- 可禁用其他登录方式，仅允许用访问密钥调用 API。
+- 可限制仅 admin 可用，或开放给所有用户。
 
-### Password
+### 密码（Deprecated）
 
-:::danger
-Method has been Deprecated
-:::
+- 仅应由 admin 使用。
+- 更改 admin 密码需在所有使用处更新。
+- 可执行所有命令。
 
-- Should only be used by the admin user.
-- Changing the admin password requires updating it everywhere it’s used.
-- Allowed to run all commands.
+### API key（Deprecated）
 
-### API key
+- 仅应由 admin 使用。
+- 更改 admin 密码无影响。
+- 可执行所有命令。
 
-:::danger
-Method has been Deprecated
-:::
+## 配置 Access/Secret Key 认证
 
-- Should only be used by the admin user.
-- Changing the admin password does not have consequences.
-- Allowed to run all commands.
+在面板中创建访问密钥，见[账户 > API 访问密钥](../user-guide/account#api-access-keys)。
 
-## Setup access/secret key authentication
-
-To create an access key, follow [the guide in our documentation](../user-guide/account#api-access-keys).
-
-:::tip
-Or create it with the following commad. To create a acccess that requires administrator permissions create the api key via the initial admin user!
+::: tip
+也可用命令创建。若需管理员权限，请在初始 admin 用户下创建：
 :::
 
 ```bash
 v-add-access-key 'admin' 'profile' test json
 ```
 
-If you want to use the api key with all commands supported use
+若需允许所有命令：
 
 ```bash
 v-add-access-key 'admin' '*' test json
 ```
 
-### Creating own API key profiles
+### 自定义 API Key Profile
 
-Create a new file in `/usr/local/hestia/data/api/` with the following contents
+在 `/usr/local/hestia/data/api/` 新建文件，内容示例：
 
 ```bash
 ROLE='admin'
 COMMANDS='v-list-web-domains,v-add-web-domain,v-list-web-domain'
 ```
 
-- Role: user or admin.
-- Commands: Comma seperated list with all the command you require.
+- ROLE：`user` 或 `admin`
+- COMMANDS：逗号分隔的命令列表
 
-If the software you are using already supports the hash format, use `ACCESS_KEY:SECRET_KEY` instead of your old API key.
+若第三方已支持 `ACCESS_KEY:SECRET_KEY` 形式，可直接用新格式替代旧 API key。
 
-## Create an API key
+## 旧式 API key（不推荐）
 
 ::: warning
-This method has been replaced by the above access/secret key authentication. We **highly** recommend using this more secure method instead.
+已被访问密钥方式取代，强烈建议使用更安全的新方法。
 :::
 
-Run the command `v-generate-api-key`.
+仍需生成可运行：`v-generate-api-key`。
 
-## Return codes
+## 返回码
 
-| Value | Name          | Comment                                                      |
-| ----- | ------------- | ------------------------------------------------------------ |
-| 0     | OK            | Command has been successfully performed                      |
-| 1     | E_ARGS        | Not enough arguments provided                                |
-| 2     | E_INVALID     | Object or argument is not valid                              |
-| 3     | E_NOTEXIST    | Object doesn’t exist                                         |
-| 4     | E_EXISTS      | Object already exists                                        |
-| 5     | E_SUSPENDED   | Object is already suspended                                  |
-| 6     | E_UNSUSPENDED | Object is already unsuspended                                |
-| 7     | E_INUSE       | Object can’t be deleted because it is used by another object |
-| 8     | E_LIMIT       | Object cannot be created because of hosting package limits   |
-| 9     | E_PASSWORD    | Wrong / Invalid password                                     |
-| 10    | E_FORBIDEN    | Object cannot be accessed by this user                       |
-| 11    | E_DISABLED    | Subsystem is disabled                                        |
-| 12    | E_PARSING     | Configuration is broken                                      |
-| 13    | E_DISK        | Not enough disk space to complete the action                 |
-| 14    | E_LA          | Server is to busy to complete the action                     |
-| 15    | E_CONNECT     | Connection failed. Host is unreachable                       |
-| 16    | E_FTP         | FTP server is not responding                                 |
-| 17    | E_DB          | Database server is not responding                            |
-| 18    | E_RDD         | RRDtool failed to update the database                        |
-| 19    | E_UPDATE      | Update operation failed                                      |
-| 20    | E_RESTART     | Service restart failed                                       |
+| 值  | 名称          | 说明                   |
+| --- | ------------- | ---------------------- |
+| 0   | OK            | 成功                   |
+| 1   | E_ARGS        | 参数不足               |
+| 2   | E_INVALID     | 对象或参数无效         |
+| 3   | E_NOTEXIST    | 对象不存在             |
+| 4   | E_EXISTS      | 对象已存在             |
+| 5   | E_SUSPENDED   | 对象已被暂停           |
+| 6   | E_UNSUSPENDED | 对象已取消暂停         |
+| 7   | E_INUSE       | 对象正被使用，无法删除 |
+| 8   | E_LIMIT       | 受套餐限制，无法创建   |
+| 9   | E_PASSWORD    | 密码错误/无效          |
+| 10  | E_FORBIDEN    | 当前用户无权访问该对象 |
+| 11  | E_DISABLED    | 子系统被禁用           |
+| 12  | E_PARSING     | 配置损坏               |
+| 13  | E_DISK        | 磁盘空间不足           |
+| 14  | E_LA          | 服务器负载过高         |
+| 15  | E_CONNECT     | 连接失败，主机不可达   |
+| 16  | E_FTP         | FTP 服务器无响应       |
+| 17  | E_DB          | 数据库服务器无响应     |
+| 18  | E_RDD         | RRDtool 更新失败       |
+| 19  | E_UPDATE      | 更新失败               |
+| 20  | E_RESTART     | 服务重启失败           |

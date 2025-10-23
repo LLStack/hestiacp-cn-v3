@@ -2,11 +2,11 @@ import { defineConfig } from 'vitepress';
 import { version } from '../../package.json';
 
 export default defineConfig({
-	lang: 'en-US',
-	title: 'Hestia Control Panel',
-	description: 'Open-source web server control panel.',
+	lang: 'zh-CN',
+	title: 'Hestia 控制面板',
+	description: '开源的 Web 服务器控制面板。',
 
-	lastUpdated: true,
+	lastUpdated: false,
 	cleanUrls: false,
 
 	head: [
@@ -34,12 +34,12 @@ export default defineConfig({
 
 		editLink: {
 			pattern: 'https://github.com/hestiacp/hestiacp/edit/main/docs/:path',
-			text: 'Edit this page on GitHub',
+			text: '在 GitHub 上编辑此页',
 		},
 
 		footer: {
-			message: 'Released under the GPLv3 License.',
-			copyright: 'Copyright © 2019-present Hestia Control Panel',
+			message: '以 GPLv3 许可证发布。',
+			copyright: 'Copyright © 2019-至今 Hestia 控制面板',
 		},
 
 		algolia: {
@@ -50,109 +50,100 @@ export default defineConfig({
 	},
 });
 
-/** @returns {import("vitepress").DefaultTheme.NavItem[]} */
+/** @returns {import('vitepress').DefaultTheme.NavItem[]} */
 function nav() {
 	return [
-		{ text: 'Features', link: '/features' },
-		{ text: 'Install', link: '/install' },
-		{ text: 'Documentation', link: '/docs/introduction/getting-started', activeMatch: '/docs/' },
-		{ text: 'Team', link: '/team' },
-		{ text: 'Demo', link: 'https://demo.hestiacp.com:8083/' },
-		{ text: 'Forum', link: 'https://forum.hestiacp.com/' },
-		{ text: 'Donate', link: '/donate' },
+		{ text: '功能', link: '/features' },
+		{ text: '安装', link: '/install' },
+		{ text: '文档', link: '/docs/introduction/getting-started', activeMatch: '/docs/' },
+		{ text: '演示', link: 'https://demo.hestiacp.com:8083/' },
+		{ text: '论坛', link: 'https://forum.hestiacp.com/' },
+		{ text: '捐赠', link: '/donate' },
 		{
 			text: `v${version}`,
 			items: [
+				{ text: '更新日志', link: 'https://github.com/hestiacp/hestiacp/blob/main/CHANGELOG.md' },
 				{
-					text: 'Changelog',
-					link: 'https://github.com/hestiacp/hestiacp/blob/main/CHANGELOG.md',
-				},
-				{
-					text: 'Contributing',
+					text: '参与贡献',
 					link: 'https://github.com/hestiacp/hestiacp/blob/main/CONTRIBUTING.md',
 				},
-				{
-					text: 'Security policy',
-					link: 'https://github.com/hestiacp/hestiacp/blob/main/SECURITY.md',
-				},
+				{ text: '安全策略', link: 'https://github.com/hestiacp/hestiacp/blob/main/SECURITY.md' },
 			],
 		},
 	];
 }
-/** @returns {import("vitepress").DefaultTheme.SidebarItem[]} */
+
+/** @returns {import('vitepress').DefaultTheme.SidebarItem[]} */
 function sidebarDocs() {
 	return [
 		{
-			text: 'Introduction',
+			text: '介绍',
 			collapsed: false,
 			items: [
-				{ text: 'Getting started', link: '/docs/introduction/getting-started' },
-				{ text: 'Best practices', link: '/docs/introduction/best-practices' },
+				{ text: '快速开始', link: '/docs/introduction/getting-started' },
+				{ text: '最佳实践', link: '/docs/introduction/best-practices' },
 			],
 		},
 		{
-			text: 'User guide',
+			text: '用户指南',
 			collapsed: false,
 			items: [
-				{ text: 'Account', link: '/docs/user-guide/account' },
-				{ text: 'Backups', link: '/docs/user-guide/backups' },
-				{ text: 'Cron jobs', link: '/docs/user-guide/cron-jobs' },
-				{ text: 'Databases', link: '/docs/user-guide/databases' },
+				{ text: '账户', link: '/docs/user-guide/account' },
+				{ text: '备份', link: '/docs/user-guide/backups' },
+				{ text: '定时任务', link: '/docs/user-guide/cron-jobs' },
+				{ text: '数据库', link: '/docs/user-guide/databases' },
 				{ text: 'DNS', link: '/docs/user-guide/dns' },
-				{ text: 'File manager', link: '/docs/user-guide/file-manager' },
-				{ text: 'Mail domains', link: '/docs/user-guide/mail-domains' },
-				{ text: 'Notifications', link: '/docs/user-guide/notifications' },
-				{ text: 'Packages', link: '/docs/user-guide/packages' },
-				{ text: 'Statistics', link: '/docs/user-guide/statistics' },
-				{ text: 'Users', link: '/docs/user-guide/users' },
-				{ text: 'Web domains', link: '/docs/user-guide/web-domains' },
+				{ text: '文件管理器', link: '/docs/user-guide/file-manager' },
+				{ text: '邮件域', link: '/docs/user-guide/mail-domains' },
+				{ text: '通知', link: '/docs/user-guide/notifications' },
+				{ text: '套餐', link: '/docs/user-guide/packages' },
+				{ text: '统计', link: '/docs/user-guide/statistics' },
+				{ text: '用户', link: '/docs/user-guide/users' },
+				{ text: '网站域名', link: '/docs/user-guide/web-domains' },
 			],
 		},
 		{
-			text: 'Server administration',
+			text: '服务器管理',
 			collapsed: false,
 			items: [
-				{ text: 'Backup & restore', link: '/docs/server-administration/backup-restore' },
-				{ text: 'Configuration', link: '/docs/server-administration/configuration' },
-				{ text: 'Customisation', link: '/docs/server-administration/customisation' },
-				{ text: 'Databases & phpMyAdmin', link: '/docs/server-administration/databases' },
-				{ text: 'DNS clusters & DNSSEC', link: '/docs/server-administration/dns' },
-				{ text: 'Email', link: '/docs/server-administration/email' },
-				{ text: 'File manager', link: '/docs/server-administration/file-manager' },
-				{ text: 'Firewall', link: '/docs/server-administration/firewall' },
-				{ text: 'OS upgrades', link: '/docs/server-administration/os-upgrades' },
-				{ text: 'Rest API', link: '/docs/server-administration/rest-api' },
-				{ text: 'SSL certificates', link: '/docs/server-administration/ssl-certificates' },
-				{ text: 'Web templates & caching', link: '/docs/server-administration/web-templates' },
-				{ text: 'Troubleshooting', link: '/docs/server-administration/troubleshooting' },
+				{ text: '备份与恢复', link: '/docs/server-administration/backup-restore' },
+				{ text: '配置', link: '/docs/server-administration/configuration' },
+				{ text: '定制', link: '/docs/server-administration/customisation' },
+				{ text: '数据库与 phpMyAdmin', link: '/docs/server-administration/databases' },
+				{ text: 'DNS 集群与 DNSSEC', link: '/docs/server-administration/dns' },
+				{ text: '邮件', link: '/docs/server-administration/email' },
+				{ text: '文件管理器', link: '/docs/server-administration/file-manager' },
+				{ text: '防火墙', link: '/docs/server-administration/firewall' },
+				{ text: '系统升级', link: '/docs/server-administration/os-upgrades' },
+				{ text: 'REST API', link: '/docs/server-administration/rest-api' },
+				{ text: 'SSL 证书', link: '/docs/server-administration/ssl-certificates' },
+				{ text: 'Web 模板与缓存', link: '/docs/server-administration/web-templates' },
+				{ text: '故障排查', link: '/docs/server-administration/troubleshooting' },
 			],
 		},
 		{
-			text: 'Contributing',
+			text: '参与贡献',
 			collapsed: false,
 			items: [
-				{ text: 'Building Packages', link: '/docs/contributing/building' },
-				{ text: 'Development', link: '/docs/contributing/development' },
-				{ text: 'Documentation', link: '/docs/contributing/documentation' },
-				{ text: 'Quick install app', link: '/docs/contributing/quick-install-app' },
-				{ text: 'Testing', link: '/docs/contributing/testing' },
-				{ text: 'Translations', link: '/docs/contributing/translations' },
+				{ text: '构建软件包', link: '/docs/contributing/building' },
+				{ text: '开发', link: '/docs/contributing/development' },
+				{ text: '文档', link: '/docs/contributing/documentation' },
+				{ text: '快速安装应用', link: '/docs/contributing/quick-install-app' },
+				{ text: '测试', link: '/docs/contributing/testing' },
+				{ text: '翻译', link: '/docs/contributing/translations' },
 			],
 		},
 		{
-			text: 'Community',
+			text: '社区',
 			collapsed: false,
 			items: [
-				{ text: 'Hestia Nginx Cache', link: '/docs/community/hestia-nginx-cache' },
-				{
-					text: 'Ioncube installer for Hestia',
-					link: '/docs/community/ioncube-hestia-installer',
-				},
-				{ text: 'Install script generator', link: '/docs/community/install-script-generator' },
+				{ text: 'Hestia Nginx 缓存', link: '/docs/community/hestia-nginx-cache' },
+				{ text: 'Hestia 的 Ioncube 安装器', link: '/docs/community/ioncube-hestia-installer' },
+				{ text: '安装脚本生成器', link: '/docs/community/install-script-generator' },
 			],
 		},
 		{
-			text: 'Reference',
+			text: '参考',
 			collapsed: false,
 			items: [
 				{ text: 'API', link: '/docs/reference/api' },

@@ -1,199 +1,166 @@
-# DNS clusters and DNSSEC
+# DNS 集群与 DNSSEC
 
 ::: info
-With the release of version 1.7.0, we have implemented support for DNSSEC. DNSSEC requires a Master -> Slave setup. IF the existing implementation is a Master <-> Master setup, it is not supported. DNSSEC also requires at least Ubuntu 22.04 or Debian 11!
+自 1.7.0 起支持 DNSSEC。DNSSEC 需要 主->从（Master -> Slave）架构；若现有是 主<->主（Master <-> Master），则不支持。且 DNSSEC 需要 Ubuntu 22.04 或 Debian 11 及以上。
 :::
 
-## Host DNS for your domain on Hestia
+## 在 Hestia 上托管域名的 DNS
 
-Pre-requisites
+前置条件：
 
-These steps require that you configure the DNS servers of your domain to use your Hestia servers.
+- 将域名的名称服务器（NS）指向你的 Hestia 服务器。
+- 大多数注册商要求至少 2 个 DNS 服务器。
+- 名称服务器通常需注册为 Glue 记录。
+- NS 生效可能需要最多 24 小时。
 
-- Note that most domain providers require two or more DNS servers to be configured.
-- The name servers will most likely be required to be registered as 'Glue records'
-- You may need to wait for up to 24 hours before the name servers become available
+步骤：
 
-Preparing the domain and DNS
+1. 在 Hestia 主节点上使用 **child-ns** 模板[创建 DNS 区域](../user-guide/dns#adding-a-dns-zone)。
+2. 在注册商面板中，将该域的 NS 设置为 Hestia 服务器。
 
-1. On your Hestia master, [create a DNS Zone](../user-guide/dns#adding-a-dns-zone) with the **child-ns** template
-2. On your domain registrar panel, set the name servers of the domain to the Hestia servers
+若需最小化 DNS 停机，或在多台服务器间自动同步 DNS 区域，可搭建 DNS 集群。
 
-If you are looking at options to minimise DNS-related downtime or for a way to automatically synchronise DNS zones across all your servers, you might consider setting up a DNS cluster.
-
-If DNSSEC matters to you, then you must use Master -> Slave. However if you would like to add zones to either server and have them replicate to the other, then configure as Master <-> Master.
+若你需要 DNSSEC，必须使用 主->从；若希望任意一台都能新增区域并双向同步，可使用 主<->主。
 
 ::: tip
-If you have just set up your slave, check that the host name resolves and that you have a valid SSL certificate
+新部署从节点后，请先确认主机名可解析且 SSL 证书有效。
 :::
 
-## DNS Cluster setup
+## DNS 集群搭建
 
-A Master server is where DNS zones are created, and a Slave server recieves the zone via the API. Hestia can be configured as Master <-> Master or Master -> Slave. With a Master <-> Master configuration, each Master is also a Slave, so it could be considered as Master/Slave <-> Master/Slave.
+主节点负责创建区域，从节点通过 API 接收。Hestia 支持 主<->主 或 主->从。主<->主 时，每个主同时也是从。
 
-On each Slave server, a unique user is required who will be assigned the zones, and must be assigned the "Sync DNS User" or "dns-cluster" role.
+在每个从节点上，需要一个独立用户用于接收区域，并赋予 “Sync DNS User” 或 `dns-cluster` 角色。
 
 ::: info
-With the release of 1.6.0, we have implemented a new API Access Key authentication system. We strongly suggest using this method instead of the previous username/password system, as it is more secure due to the length of the access key and secret key!
+自 1.6.0 起支持 API 访问密钥（Access Key + Secret Key）认证，强烈建议替代旧的用户名/密码方式。
 
-If you still want to use the legacy API to authenticate with **admin** username and the password make sure **Enable legacy API** access is set to **yes**.
+如仍需使用旧 API（admin+密码），请在服务器设置中启用 “Enable legacy API”。
 :::
 
-### Master <-> Master DNS cluster (Default setup) with the Hestia API
+### 主<->主（默认）使用 Hestia API
 
 ::: warning
-This method does not support DNSSEC!
+此方案不支持 DNSSEC！
 :::
 
-1. Create a new user on each Hestia server that will act as a “Slave”. Make sure it uses the username of "dns-cluster" or has the role `dns-cluster`
-2. Run the following command to enable the DNS server.
+1. 在每台 Hestia 上创建一个用于同步的“从”用户，用户名建议为 `dns-cluster` 或赋予 `dns-cluster` 角色。
+2. 启用远端 DNS：
 
 ```bash
 v-add-remote-dns-host slave.yourhost.com 8083 'accesskey:secretkey' '' 'api' 'username'
 ```
 
-Or if you still want to use admin and password authentication (not recommended)
+（不推荐）使用 admin+password：
 
 ```bash
 v-add-remote-dns-host slave.yourhost.com 8083 'admin' 'strongpassword' 'api' 'username'
 ```
 
-This way you can set up Master -> Slave or Master <-> Master <-> Master cluster.
+可链式搭建 主->从 或 主<->主<->主，链路数量不受限。
 
-There is no limitation on how to chain DNS servers.
-
-### Master -> Slave DNS cluster with the Hestia API
+### 主->从 使用 Hestia API
 
 ::: info
-It doesn't work if you try to sync via local network! See [Issue](https://github.com/hestiacp/hestiacp/issues/4295) Make sure to use the public ip addresses
+局域网地址同步不可用（见[问题](https://github.com/hestiacp/hestiacp/issues/4295)），请使用公网 IP。
 :::
 
-Preparing your **Slave** server(s):
+准备从节点：
 
-1. Whitelist your master server IP in **Configure Server** -> **Security** -> **Allowed IP addresses for API**
-2. Enable API access for admins (or all users).
-3. Create an API key under the **admin** user with at least the **sync-dns-cluster** permission. This is found in user settings / Access keys.
-4. Create a new DNS sync user as follows:
-   - Has email address (something generic)
-   - Has the role `dns-cluster`
-   - You may want to set 'Do not allow user to log in to Control Panel' if they are not a regular user
-   - If you have more than one slave, the slave user must be unique
-5. Edit `/usr/local/hestia/conf/hestia.conf`, change `DNS_CLUSTER_SYSTEM='hestia'` to `DNS_CLUSTER_SYSTEM='hestia-zone'`.
-6. Edit `/etc/bind/named.conf.options`, do the following changes, then restart bind9 with `systemctl restart bind9`:
+1. 在“服务器设置 -> 安全”中，将主节点 IP 加入 “Allowed IP addresses for API”。
+2. 启用管理员（或全部用户）的 API 访问。
+3. 在 admin 用户下创建 API Access Key，至少包含 `sync-dns-cluster` 权限。
+4. 创建一个用于接收同步的用户：
+   - 设置邮箱（通用地址即可）
+   - 角色为 `dns-cluster`
+   - 如非普通用户，勾选 “不允许登录控制面板”
+   - 多从节点时，每台从的用户需唯一
+5. 编辑 `/usr/local/hestia/conf/hestia.conf`，将 `DNS_CLUSTER_SYSTEM='hestia'` 改为 `DNS_CLUSTER_SYSTEM='hestia-zone'`。
+6. 编辑 `/etc/bind/named.conf.options` 并重启 bind9：
 
    ```bash
-   # Change this line
+   # 原
    allow-recursion { 127.0.0.1; ::1; };
-   # To this
+   # 改为
    allow-recursion { 127.0.0.1; ::1; your.master.ip.address; };
-   # Add this line
+   # 新增
    allow-notify{ your.master.ip.address; };
    ```
 
-Preparing your **Master** server:
+准备主节点：
 
-1. On the **Master** server, open `/usr/local/hestia/conf/hestia.conf`, change `DNS_CLUSTER_SYSTEM='hestia'` to `DNS_CLUSTER_SYSTEM='hestia-zone'`.
-2. Edit `/etc/bind/named.conf.options`, do the following changes, then restart bind9 with `systemctl restart bind9`.
+1. 在主节点同样将 `DNS_CLUSTER_SYSTEM` 改为 `hestia-zone`。
+2. 编辑 `/etc/bind/named.conf.options` 并重启 bind9：
 
    ```bash
-   # Change this line
+   # 原
    allow-transfer { "none"; };
-   # To this
+   # 改为（单从）
    allow-transfer { your.slave.ip.address; };
-   # Or this, if adding multiple slaves
+   # 多从
    allow-transfer { first.slave.ip.address; second.slave.ip.address; };
-   # Add this line, if adding multiple slaves
+   # 多从时还可
    also-notify { second.slave.ip.address; };
    ```
 
-3. Run the following command to enable each Slave DNS server, and wait a short while for it to complete zone transfers:
+3. 在主节点为每台从执行：
 
    ```bash
-   v-add-remote-dns-host <your slave host name> <port number> '<accesskey>:<secretkey>' '' 'api' '<your chosen slave user name>'
+   v-add-remote-dns-host <slave host> <port> '<accesskey>:<secretkey>' '' 'api' '<slave user>'
    ```
 
-   If you still want to use admin and password authentication (not recommended):
+   或旧 API（不推荐）：
 
    ```bash
    v-add-remote-dns-host slave.yourhost.com 8083 'admin' 'strongpassword' 'api' 'user-name'
    ```
 
-4. Check it worked by listing the DNS zones on the **Slave** for the dns-user with the CLI command `v-list-dns-domains dns-user` or by connecting to the web interface as dns-user and reviewing the DNS zones.
+4. 在从节点以 `dns-user` 列出区域 `v-list-dns-domains dns-user`，或登录其面板检查同步结果。
 
-### Converting an existing DNS cluster to Master -> Slave
+### 将现有 主<->主 转为 主->从
 
-1. On **Master** and **Slave** servers, open `/usr/local/hestia/conf/hestia.conf`, change `DNS_CLUSTER_SYSTEM='hestia'` to `DNS_CLUSTER_SYSTEM='hestia-zone'`.
-2. On the **Master** server, open `/etc/bind/named.conf.options`, do the following changes, then restart bind9 with `systemctl restart bind9`.
+1. 主与从均将 `DNS_CLUSTER_SYSTEM` 改为 `hestia-zone`。
+2. 主节点 `named.conf.options` 中将 `allow-transfer` 设置为从节点 IP（或多从），必要时添加 `also-notify`；
+3. 从节点 `named.conf.options` 中放行来自主的递归与 notify；
+4. 执行 `v-sync-dns-cluster` 同步。
 
-   ```bash
-   # Change this line
-   allow-transfer { "none"; };
-   # To this
-   allow-transfer { your.slave.ip.address; };
-   # Or this, if adding multiple slaves
-   allow-transfer { first.slave.ip.address; second.slave.ip.address; };
-   # Add this line, if adding multiple slaves
-   also-notify { second.slave.ip.address; };
-   ```
-
-3. On the **Slave** server, open `/etc/bind/named.conf.options`, do the following changes, then restart bind9 with `systemctl restart bind9`:
-
-   ```bash
-   # Change this line
-   allow-recursion { 127.0.0.1; ::1; };
-   # To this
-   allow-recursion { 127.0.0.1; ::1; your.master.ip.address; };
-   # Add this line
-   allow-notify{ your.master.ip.address; };
-   ```
-
-4. Update DNS with `v-sync-dns-cluster`
-
-## Enabling DNSSEC
+## 启用 DNSSEC
 
 ::: warning
-DNSSEC can’t be used when Hestia Cluster is active as Master <-> Master
+主<->主 模式下无法使用 DNSSEC。
 :::
 
-To enable DNSSEC, check the checkbox in-front of DNSSEC and save.
+在域名设置中勾选 DNSSEC 并保存。要查看公钥，在 DNS 域列表点击 <i class="fas fas-key"></i>。
 
-To view the public key. Got to the list DNS domains and click the <i class="fas fas-key"></i> icon.
-
-Depending on your registrar, you will either be able to create a new record based on the DNSKEY or based on DS key. After the DNSSEC public key has been added to the registrar, DNSSEC is enabled and live.
+根据注册商支持，可能需要录入 DNSKEY 或 DS 记录。注册商保存公钥后，DNSSEC 即生效。
 
 ::: danger
-Removing or disabling the private key in Hestia will make the domain inaccessble.
+删除或禁用 Hestia 中的私钥会导致域名不可访问。
 :::
 
-## FAQ & troubleshooting
+## 常见问题与排错
 
-### Can I separate DNS accounts by users
+### 能按用户划分接收的 DNS 区域吗？
 
-Yes, you can just supply the user variable at the end of the command.
+可以，在命令末尾提供用户名：
 
-````bash
-v-add-remote-dns-host slave.yourhost.com 8083 'access_key:secret_key' '' '' 'username'```
-````
+```bash
+v-add-remote-dns-host slave.yourhost.com 8083 'access_key:secret_key' '' '' 'username'
+```
 
-or
+或（旧 API）：
 
 ```bash
 v-add-remote-dns-host slave.yourhost.com 8083 admin p4sw0rd '' 'username'
 ```
 
-With the new API system, you can also replace `api_key` with `access_key:secret_key`
+### 无法添加远端 DNS 主机
 
-::: info
-By default the user `dns-cluster` or user with the role `dns-cluster` are exempted from syncing to other DNS servers!
-:::
-
-### I am not able to add a server as DNS host
-
-When trying to add a DNS server for a cluster I get the following error:
+报错示例：
 
 ```bash
 /usr/local/hestia/func/remote.sh: line 43: return: Error:: numeric argument required
 Error: api connection to slave.domain.tld failed
 ```
 
-By default, API access is disabled for non-local IP addresses. On your **Slave**, add the IP address of your **Master** to the **Allowed IP addresses for API** field in Server settings -> Configure -> Security -> System -> Allowed IP addresses for API and press Save.
+默认非本地 IP 禁止访问 API。请在从节点“服务器设置 -> 安全 -> 允许访问 API 的 IP”中加入主节点公网 IP 并保存。
