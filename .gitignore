@@ -1,50 +1,14 @@
-# Packages
-*.tar
-*.zip
-*.gzip
-*.gz
-*.bz2
-*.deb
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Editors
-.vs/
-.nova/
-.idea/
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
-nbproject/project.properties
-nbproject/project.xml
+# VitePress build output
+docs/.vitepress/cache/
+docs/.vitepress/dist/
 
-# macOS
+# OS artifacts
 .DS_Store
-.AppleDouble
-.LSOverride
-._*
-
-.env
-
-# Distribution CSS
-web/css/themes/
-
-# Distribution JS
-web/js/dist/
-
-# Composer
-composer.phar
-test/vendor/
-# PHPMailer
-web/inc/vendor/
-# Quick install
-web/src/vendor/
-.phpunit.result.cache
-
-# vitepress build output
-**/.vitepress/dist/
-**/.vitepress/cache/
-# Node
-**/node_modules/
-npm-debug.log
+Thumbs.db
