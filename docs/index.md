@@ -41,8 +41,17 @@ features:
     linkText: 捐赠
 ---
 
-## Friend Links
+## Linux 文档联盟
 
-[Debian.Club](https://debian.club) | [hestiacp.cn](https://hestiacp.cn) | [PortCyou](https://portcyou.com) | [CloudFan](https://cloud.fan) | [MuleRun](https://mulerun.com) | [AlmaLinuxCN](https://www.almalinux.com.cn)
+- [Debian.Club](https://debian.club/) - Debian 中文社区
+- [Ubuntu.Fan](https://ubuntu.fan/) - Ubuntu 中文社区
+- [RunEntLinux](https://runentlinux.com/) - 企业级 Linux 资源
+- [AlmaLinuxCN](https://www.almalinux.com.cn/) - AlmaLinux 中文社区
 
-[P.Cafe](https://p.cafe) | [RankFan](https://www.rank.fan) | [ClawCloud Run](https://run.claw.cloud) | [APP on ARM](https://www.apponarm.com) | [FreeHost](https://freehost.work) | [MF8](https://mf8.biz) | [AAT.ee](https://aat.ee) | [II.Pe](https://ii.pe)
+查看软件支持生命周期请访问：[EOL.Wiki](https://eol.wiki/)
+
+## 推荐项目
+
+- [WebCasa](https://web.casa) - 更 AI Native 的开源服务器控制面板
+- [LiteHTTPD](https://litehttpd.com) - 高度兼容 Apache HTTPD 的轻量化 Web Server
+

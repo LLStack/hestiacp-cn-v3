@@ -7,9 +7,11 @@ import 'floating-vue/dist/style.css';
 import FloatingVue from 'floating-vue';
 import FeaturePage from './components/FeaturePage.vue';
 import InstallPage from './components/InstallPage.vue';
+import CustomLayout from './components/CustomLayout.vue';
 
 export default {
 	...Theme,
+	Layout: CustomLayout,
 	enhanceApp({ app }) {
 		app.use(FloatingVue);
 		app.component('FeaturePage', FeaturePage);

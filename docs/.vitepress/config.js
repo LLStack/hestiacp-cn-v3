@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress';
 import { version } from '../../package.json';
 
 export default defineConfig({
-	lang: 'zh-CN',
 	title: 'Hestia 控制面板',
 	description: '开源的 Web 服务器控制面板。',
 
@@ -17,10 +16,37 @@ export default defineConfig({
 		['meta', { name: 'theme-color', content: '#b7236a' }],
 	],
 
+	locales: {
+		root: {
+			label: '简体中文',
+			lang: 'zh-CN',
+			themeConfig: {
+				nav: navZh(),
+				sidebar: { '/docs/': sidebarDocsZh() },
+				footer: {
+					message: '以 GPLv3 许可证发布。',
+					copyright: 'Copyright © 2019-至今 Hestia 控制面板',
+				},
+			},
+		},
+		en: {
+			label: 'English',
+			lang: 'en',
+			title: 'Hestia Control Panel',
+			description: 'Open-source web server control panel.',
+			themeConfig: {
+				nav: navEn(),
+				sidebar: { '/en/docs/': sidebarDocsEn() },
+				footer: {
+					message: 'Released under the GPLv3 License.',
+					copyright: 'Copyright © 2019-present Hestia Control Panel',
+				},
+			},
+		},
+	},
+
 	themeConfig: {
 		logo: '/logo.svg',
-
-		nav: nav(),
 
 		socialLinks: [
 			{ icon: 'github', link: 'https://github.com/hestiacp/hestiacp' },
@@ -28,19 +54,7 @@ export default defineConfig({
 			{ icon: 'facebook', link: 'https://www.facebook.com/hestiacp' },
 		],
 
-		sidebar: { '/docs/': sidebarDocs() },
-
 		outline: [2, 3],
-
-		editLink: {
-			pattern: 'https://github.com/hestiacp/hestiacp/edit/main/docs/:path',
-			text: '在 GitHub 上编辑此页',
-		},
-
-		footer: {
-			message: '以 GPLv3 许可证发布。',
-			copyright: 'Copyright © 2019-至今 Hestia 控制面板',
-		},
 
 		algolia: {
 			appId: 'V04P0P5D2R',
@@ -51,7 +65,7 @@ export default defineConfig({
 });
 
 /** @returns {import('vitepress').DefaultTheme.NavItem[]} */
-function nav() {
+function navZh() {
 	return [
 		{ text: '功能', link: '/features' },
 		{ text: '安装', link: '/install' },
@@ -59,6 +73,7 @@ function nav() {
 		{ text: '演示', link: 'https://demo.hestiacp.com:8083/' },
 		{ text: '论坛', link: 'https://forum.hestiacp.com/' },
 		{ text: '捐赠', link: '/donate' },
+		{ text: '友情链接', link: '/links' },
 		{
 			text: `v${version}`,
 			items: [
@@ -73,8 +88,32 @@ function nav() {
 	];
 }
 
+/** @returns {import('vitepress').DefaultTheme.NavItem[]} */
+function navEn() {
+	return [
+		{ text: 'Features', link: '/en/features' },
+		{ text: 'Install', link: '/en/install' },
+		{ text: 'Docs', link: '/en/docs/introduction/getting-started', activeMatch: '/en/docs/' },
+		{ text: 'Demo', link: 'https://demo.hestiacp.com:8083/' },
+		{ text: 'Forum', link: 'https://forum.hestiacp.com/' },
+		{ text: 'Donate', link: '/en/donate' },
+		{ text: 'Links', link: '/en/links' },
+		{
+			text: `v${version}`,
+			items: [
+				{ text: 'Changelog', link: 'https://github.com/hestiacp/hestiacp/blob/main/CHANGELOG.md' },
+				{
+					text: 'Contributing',
+					link: 'https://github.com/hestiacp/hestiacp/blob/main/CONTRIBUTING.md',
+				},
+				{ text: 'Security', link: 'https://github.com/hestiacp/hestiacp/blob/main/SECURITY.md' },
+			],
+		},
+	];
+}
+
 /** @returns {import('vitepress').DefaultTheme.SidebarItem[]} */
-function sidebarDocs() {
+function sidebarDocsZh() {
 	return [
 		{
 			text: '介绍',
@@ -148,6 +187,86 @@ function sidebarDocs() {
 			items: [
 				{ text: 'API', link: '/docs/reference/api' },
 				{ text: 'CLI', link: '/docs/reference/cli' },
+			],
+		},
+	];
+}
+
+/** @returns {import('vitepress').DefaultTheme.SidebarItem[]} */
+function sidebarDocsEn() {
+	return [
+		{
+			text: 'Introduction',
+			collapsed: false,
+			items: [
+				{ text: 'Getting Started', link: '/en/docs/introduction/getting-started' },
+				{ text: 'Best Practices', link: '/en/docs/introduction/best-practices' },
+			],
+		},
+		{
+			text: 'User Guide',
+			collapsed: false,
+			items: [
+				{ text: 'Account', link: '/en/docs/user-guide/account' },
+				{ text: 'Backups', link: '/en/docs/user-guide/backups' },
+				{ text: 'Cron Jobs', link: '/en/docs/user-guide/cron-jobs' },
+				{ text: 'Databases', link: '/en/docs/user-guide/databases' },
+				{ text: 'DNS', link: '/en/docs/user-guide/dns' },
+				{ text: 'File Manager', link: '/en/docs/user-guide/file-manager' },
+				{ text: 'Mail Domains', link: '/en/docs/user-guide/mail-domains' },
+				{ text: 'Notifications', link: '/en/docs/user-guide/notifications' },
+				{ text: 'Packages', link: '/en/docs/user-guide/packages' },
+				{ text: 'Statistics', link: '/en/docs/user-guide/statistics' },
+				{ text: 'Users', link: '/en/docs/user-guide/users' },
+				{ text: 'Web Domains', link: '/en/docs/user-guide/web-domains' },
+			],
+		},
+		{
+			text: 'Server Administration',
+			collapsed: false,
+			items: [
+				{ text: 'Backup & Restore', link: '/en/docs/server-administration/backup-restore' },
+				{ text: 'Configuration', link: '/en/docs/server-administration/configuration' },
+				{ text: 'Customisation', link: '/en/docs/server-administration/customisation' },
+				{ text: 'Databases & phpMyAdmin', link: '/en/docs/server-administration/databases' },
+				{ text: 'DNS Cluster & DNSSEC', link: '/en/docs/server-administration/dns' },
+				{ text: 'Email', link: '/en/docs/server-administration/email' },
+				{ text: 'File Manager', link: '/en/docs/server-administration/file-manager' },
+				{ text: 'Firewall', link: '/en/docs/server-administration/firewall' },
+				{ text: 'OS Upgrades', link: '/en/docs/server-administration/os-upgrades' },
+				{ text: 'REST API', link: '/en/docs/server-administration/rest-api' },
+				{ text: 'SSL Certificates', link: '/en/docs/server-administration/ssl-certificates' },
+				{ text: 'Web Templates & Cache', link: '/en/docs/server-administration/web-templates' },
+				{ text: 'Troubleshooting', link: '/en/docs/server-administration/troubleshooting' },
+			],
+		},
+		{
+			text: 'Contributing',
+			collapsed: false,
+			items: [
+				{ text: 'Building', link: '/en/docs/contributing/building' },
+				{ text: 'Development', link: '/en/docs/contributing/development' },
+				{ text: 'Documentation', link: '/en/docs/contributing/documentation' },
+				{ text: 'Quick Install App', link: '/en/docs/contributing/quick-install-app' },
+				{ text: 'Testing', link: '/en/docs/contributing/testing' },
+				{ text: 'Translations', link: '/en/docs/contributing/translations' },
+			],
+		},
+		{
+			text: 'Community',
+			collapsed: false,
+			items: [
+				{ text: 'Hestia Nginx Cache', link: '/en/docs/community/hestia-nginx-cache' },
+				{ text: 'Ioncube Installer for Hestia', link: '/en/docs/community/ioncube-hestia-installer' },
+				{ text: 'Install Script Generator', link: '/en/docs/community/install-script-generator' },
+			],
+		},
+		{
+			text: 'Reference',
+			collapsed: false,
+			items: [
+				{ text: 'API', link: '/en/docs/reference/api' },
+				{ text: 'CLI', link: '/en/docs/reference/cli' },
 			],
 		},
 	];
