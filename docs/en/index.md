@@ -54,4 +54,5 @@ Check software end-of-life dates at: [EOL.Wiki](https://eol.wiki/)
 
 - [WebCasa](https://web.casa) - AI-Native Open-Source Server Control Panel
 - [LiteHTTPD](https://litehttpd.com) - Lightweight Web Server, Highly Compatible with Apache HTTPD
-
+- [HiEmdash](https://hiemdash.com)
+- [QOO.IM](https://qoo.im)

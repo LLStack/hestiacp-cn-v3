@@ -54,4 +54,5 @@ features:
 
 - [WebCasa](https://web.casa) - 更 AI Native 的开源服务器控制面板
 - [LiteHTTPD](https://litehttpd.com) - 高度兼容 Apache HTTPD 的轻量化 Web Server
-
+- [HiEmdash](https://hiemdash.com)
+- [QOO.IM](https://qoo.im)
